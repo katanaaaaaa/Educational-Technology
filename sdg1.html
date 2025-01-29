@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Υπολογισμός SDG1</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    h1, h3 {
+      text-align: center;
+    }
+    div {
+      margin-bottom: 20px;
+      padding: 15px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    label {
+      display: block;
+      margin: 5px 0;
+    }
+    select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-top: 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    button:hover:not(:disabled) {
+      background-color: #0056b3;
+    }
+    h2, p {
+      text-align: center;
+    }
+    .low-performance {
+      color: red;
+      font-weight: bold;
+    }
+    .good-performance {
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Υπολογισμός Δεικτών SDG1</h1>
+
+  <!-- Φόρμα για το Ι1 -->
+  <div>
+    <h3>Δείκτης I1</h3>
+    <label for="i1-val1">Τιμή 1:</label>
+    <select id="i1-val1">
+      <option value="0">0</option>
+      <option value="0.25">0.25</option>
+      <option value="1">1</option>
+    </select>
+
+    <label for="i1-val2">Τιμή 2:</label>
+    <select id="i1-val2">
+      <option value="0">0</option>
+      <option value="1">1</option>
+    </select>
+
+    <label for="i1-val3">Τιμή 3:</label>
+    <select id="i1-val3">
+      <option value="0">0</option>
+      <option value="1">1</option>
+    </select>
+  </div>
+  
+  <!-- Φόρμα για το Ι2 -->
+  <div>
+    <h3>Δείκτης I2</h3>
+    <label for="i2-val1">Τιμή 1:</label>
+    <select id="i2-val1">
+      <option value="0">0</option>
+      <option value="0.25">0.25</option>
+      <option value="1">1</option>
+    </select>
+
+    <label for="i2-val2">Τιμή 2:</label>
+    <select id="i2-val2">
+      <option value="0">0</option>
+      <option value="1">1</option>
+    </select>
+
+    <label for="i2-val3">Τιμή 3:</label>
+    <select id="i2-val3">
+      <option value="0">0</option>
+      <option value="1">1</option>
+    </select>
+  </div>
+
+  <!-- Κουμπί Υπολογισμού -->
+  <button id="calculate-button" onclick="calculateResults()">Υπολόγισε</button>
+
+  <!-- Εμφάνιση Αποτελεσμάτων -->
+  <h2>Αποτελέσματα</h2>
+  <p id="result-i1">Σταθμισμένο I1: -</p>
+  <p id="feedbackΙ1"></p>
+  <p id="result-i2">Σταθμισμένο I2: -</p>
+  <p id="feedbackΙ2"></p>
+  <p id="result-SDG1">SDG1: -</p>
+  
+
+  <!-- Κουμπί για μετάβαση στη σελίδα SDG2 -->
+  <br><br>
+  <button id="next-button" onclick="navigateToSDG2()" disabled>Μετάβαση στο SDG2</button>
+
+  <script>
+    // Υπολογισμός αποτελεσμάτων
+    function calculateResults() {
+      const weightI1 = 0.784;
+      const weightI2 = 0.216;
+  
+      const i1Val1 = parseFloat(document.getElementById("i1-val1").value);
+      const i1Val2 = parseFloat(document.getElementById("i1-val2").value);
+      const i1Val3 = parseFloat(document.getElementById("i1-val3").value);
+  
+      const i2Val1 = parseFloat(document.getElementById("i2-val1").value);
+      const i2Val2 = parseFloat(document.getElementById("i2-val2").value);
+      const i2Val3 = parseFloat(document.getElementById("i2-val3").value);
+  
+      const totalI1 = (i1Val1 + i1Val2 + i1Val3) * weightI1;
+      const totalI2 = (i2Val1 + i2Val2 + i2Val3) * weightI2;
+      const totalSDG1 = totalI1 + totalI2;
+  
+      document.getElementById("result-i1").textContent = `Σταθμισμένο I1: ${totalI1.toFixed(2)}`;
+      document.getElementById("result-i2").textContent = `Σταθμισμένο I2: ${totalI2.toFixed(2)}`;
+      document.getElementById("result-SDG1").textContent = `SDG1: ${totalSDG1.toFixed(2)}`;
+  
+      // Ανατροφοδότηση για I1
+      const feedbackΙ1 = document.getElementById("feedbackΙ1");
+      if (totalI1 <= 2.25) {
+        feedbackΙ1.textContent = "Η απόδοση του δείκτη I1 είναι χαμηλή. Χρειάζονται βελτιώσεις.";
+        feedbackΙ1.className = "low-performance";
+      } else {
+        feedbackΙ1.textContent = "Η απόδοση του δείκτη I1 είναι ικανοποιητική.";
+        feedbackΙ1.className = "good-performance";
+      }
+  
+      // Ανατροφοδότηση για I2
+      const feedbackΙ2 = document.getElementById("feedbackΙ2");
+      if (totalI2 <= 2.25) {
+        feedbackΙ2.textContent = "Η απόδοση του δείκτη I2 είναι χαμηλή. Χρειάζονται βελτιώσεις.";
+        feedbackΙ2.className = "low-performance";
+      } else {
+        feedbackΙ2.textContent = "Η απόδοση του δείκτη I2 είναι ικανοποιητική.";
+        feedbackΙ2.className = "good-performance";
+      }
+  
+      // Ενεργοποίηση κουμπιού επόμενης σελίδας
+      document.getElementById("next-button").disabled = false;
+    }
+  
+    // Μετάβαση στη σελίδα SDG2
+    function navigateToSDG2() {
+      window.location.href = "sdg2.html";
+    }
+  </script>
+  
+</body>
+</html>

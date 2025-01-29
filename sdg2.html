@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Υπολογισμός SDG2</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    h1, h3 {
+      text-align: center;
+    }
+    div {
+      margin-bottom: 20px;
+      padding: 15px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    label {
+      display: block;
+      margin: 5px 0;
+    }
+    select, input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-top: 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    button:hover:not(:disabled) {
+      background-color: #0056b3;
+    }
+    h2, p {
+      text-align: center;
+    }
+    .low-performance {
+      color: red;
+      font-weight: bold;
+    }
+    .good-performance {
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Υπολογισμός Δεικτών SDG2</h1>
+  
+  <!-- Φόρμα για τον Δείκτη I3 -->
+  <div>
+    <h3>Δείκτης I3</h3>
+    <label for="ref-weight">Κιλά (Έτος Αναφοράς):</label>
+    <input type="number" id="ref-weight" placeholder="Εισάγετε τα κιλά" required>
+
+    <label for="ref-population">Πληθυσμός (Έτος Αναφοράς):</label>
+    <input type="number" id="ref-population" placeholder="Εισάγετε τον πληθυσμό" required>
+
+    <label for="eval-weight">Κιλά (Έτος Αξιολόγησης):</label>
+    <input type="number" id="eval-weight" placeholder="Εισάγετε τα κιλά" required>
+
+    <label for="eval-population">Πληθυσμός (Έτος Αξιολόγησης):</label>
+    <input type="number" id="eval-population" placeholder="Εισάγετε τον πληθυσμό" required>
+  </div>
+
+  <!-- Φόρμα για τον Δείκτη I4 -->
+  <div>
+    <h3>Δείκτης I4</h3>
+    <label for="i4-val1">Τιμή 1:</label>
+    <select id="i4-val1">
+      <option value="0">0</option>
+      <option value="0.25">0.25</option>
+      <option value="1">1</option>
+    </select>
+
+    <label for="i4-val2">Τιμή 2:</label>
+    <select id="i4-val2">
+      <option value="0">0</option>
+      <option value="1">1</option>
+    </select>
+
+    <label for="i4-val3">Τιμή 3:</label>
+    <select id="i4-val3">
+      <option value="0">0</option>
+      <option value="1">1</option>
+    </select>
+  </div>
+
+  <!-- Κουμπί Υπολογισμού -->
+  <button id="calculate-button" onclick="calculateResults()">Υπολόγισε</button>
+
+  <!-- Εμφάνιση Αποτελεσμάτων -->
+  <h2>Αποτελέσματα</h2>
+  <p id="result-i3">Σταθμισμένο I3: -</p>
+  <p id="result-i4">Συνολικό I4 (πριν τον πολλαπλασιασμό): -</p>
+  <p id="result-weighted-i4">Σταθμισμένο I4: -</p>
+  <p id="feedback-i4"></p>
+
+  <!-- Κουμπί για μετάβαση στη σελίδα SDG2 -->
+  <br><br>
+  <button id="next-button" onclick="navigateToSDG3()" disabled>Μετάβαση στο SDG3</button>
+
+  <script>
+    function calculateResults() {
+  const weightI4 = 0.42;
+
+  // Εισαγωγή δεδομένων για I3
+  const refWeight = parseFloat(document.getElementById("ref-weight").value);
+  const refPopulation = parseFloat(document.getElementById("ref-population").value);
+  const evalWeight = parseFloat(document.getElementById("eval-weight").value);
+  const evalPopulation = parseFloat(document.getElementById("eval-population").value);
+
+  if (isNaN(refWeight) || isNaN(refPopulation) || isNaN(evalWeight) || isNaN(evalPopulation) || 
+      refPopulation <= 0 || evalPopulation <= 0) {
+    alert("Παρακαλώ εισάγετε έγκυρες αριθμητικές τιμές για όλα τα πεδία του I3.");
+    return;
+  }
+
+  const refPerCapita = refWeight / refPopulation;
+  const evalPerCapita = evalWeight / evalPopulation;
+  const ratio = evalPerCapita / refPerCapita;
+
+  document.getElementById("result-i3").textContent = 
+    ratio < 1 ? "Το αποτέλεσμα του έτους αξιολόγησης είναι μικρότερο από το έτος αναφοράς." 
+              : `Σταθμισμένο I3: ${(1 / ratio).toFixed(2)}`;
+
+  // Εισαγωγή δεδομένων για I4
+  const i4Val1 = parseFloat(document.getElementById("i4-val1").value);
+  const i4Val2 = parseFloat(document.getElementById("i4-val2").value);
+  const i4Val3 = parseFloat(document.getElementById("i4-val3").value);
+
+  const totalI4 = i4Val1 + i4Val2 + i4Val3;
+  const weightedI4 = totalI4 * weightI4;
+  
+  document.getElementById("result-i4").textContent = `Συνολικό I4 (πριν τον πολλαπλασιασμό): ${totalI4.toFixed(2)}`;
+  document.getElementById("result-weighted-i4").textContent = `Σταθμισμένο I4: ${weightedI4.toFixed(2)}`;
+
+  const feedbackI4 = document.getElementById("feedback-i4");
+  if (totalI4 < 2.25) {
+    feedbackI4.textContent = "IF VALUES 0-2,25 THEN MORE THINGS CAN BE DONE";
+    feedbackI4.className = "low-performance";
+  } else {
+    feedbackI4.textContent = "Good performance!";
+    feedbackI4.className = "good-performance";
+  }
+
+  // Ενεργοποίηση κουμπιού επόμενης σελίδας
+  document.getElementById("next-button").disabled = false;
+}
+
+    
+    // Μετάβαση στη σελίδα SDG2
+    function navigateToSDG3() {
+      window.location.href = "sdg3.html";
+    }
+
+    
+  </script>
+</body>
+</html>
