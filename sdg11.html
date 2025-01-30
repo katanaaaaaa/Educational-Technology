@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Υπολογισμός SDG11</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f9f9f9;
+        color: #333;
+      }
+      h1,
+      h3 {
+        text-align: center;
+      }
+      div {
+        margin-bottom: 20px;
+        padding: 15px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      label {
+        display: block;
+        margin: 5px 0;
+      }
+      select,
+      input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin-top: 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+      button:hover:not(:disabled) {
+        background-color: #0056b3;
+      }
+      h2,
+      p {
+        text-align: center;
+      }
+      .low-performance {
+        color: red;
+        font-weight: bold;
+      }
+      .good-performance {
+        color: green;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Υπολογισμός Δεικτών SDG11</h1>
+
+    <!-- Φόρμα για το Ι20 -->
+    <div>
+      <h3>Δείκτης I20</h3>
+      <label for="i20-val1">Τιμή 1:</label>
+      <select id="i20-val1">
+        <option value="0">0</option>
+        <option value="0.25">0.25</option>
+        <option value="1">1</option>
+      </select>
+
+      <label for="i20-val2">Τιμή 2:</label>
+      <select id="i20-val2">
+        <option value="0">0</option>
+        <option value="1">1</option>
+      </select>
+
+      <label for="i20-val3">Τιμή 3:</label>
+      <select id="i20-val3">
+        <option value="0">0</option>
+        <option value="1">1</option>
+      </select>
+    </div>
+
+    <!-- Φόρμα για το Ι21 -->
+    <div>
+      <h3>Δείκτης I21</h3>
+      <label for="i21-val1">Τιμή 1:</label>
+      <select id="i21-val1">
+        <option value="0">0</option>
+        <option value="1">1</option>
+      </select>
+
+      <label for="i21-val2">Τιμή 2:</label>
+      <select id="i21-val2">
+        <option value="0">0</option>
+        <option value="1">1</option>
+      </select>
+
+      <label for="i21-val3">Τιμή 3:</label>
+      <select id="i21-val3">
+        <option value="0">0</option>
+        <option value="1">1</option>
+      </select>
+    </div>
+
+    <!-- Κουμπί Υπολογισμού -->
+    <button id="calculate-button" onclick="calculateResults()">
+      Υπολόγισε
+    </button>
+
+    <!-- Εμφάνιση Αποτελεσμάτων -->
+    <h2>Αποτελέσματα</h2>
+    <p id="result-i20">Σταθμισμένο I20: -</p>
+    <p id="feedbackI20"></p>
+    <p id="result-i21">Σταθμισμένο I21: -</p>
+    <p id="feedbackI21"></p>
+    <p id="result-SDG11">SDG11: -</p>
+
+    <!-- Κουμπί για μετάβαση στη σελίδα SDG12 -->
+    <br /><br />
+    <button id="next-button" onclick="navigateToSDG12()" disabled>
+      Μετάβαση στο SDG12
+    </button>
+
+    <script>
+      // Υπολογισμός αποτελεσμάτων
+      function calculateResults() {
+        const weightI20 = 0.465;
+        const weightI21 = 0.535;
+
+        const i20Val1 = parseFloat(document.getElementById("i20-val1").value);
+        const i20Val2 = parseFloat(document.getElementById("i20-val2").value);
+        const i20Val3 = parseFloat(document.getElementById("i20-val3").value);
+
+        const i21Val1 = parseFloat(document.getElementById("i21-val1").value);
+        const i21Val2 = parseFloat(document.getElementById("i21-val2").value);
+        const i21Val3 = parseFloat(document.getElementById("i21-val3").value);
+
+        const totalI20 = (i20Val1 + i20Val2 + i20Val3) * weightI20;
+        const totalI21 = (i21Val1 + i21Val2 + i21Val3) * weightI21;
+        const totalSDG11 = totalI20 + totalI21;
+
+        document.getElementById(
+          "result-i20"
+        ).textContent = `Σταθμισμένο I20: ${totalI20.toFixed(3)}`;
+        document.getElementById(
+          "result-i21"
+        ).textContent = `Σταθμισμένο I21: ${totalI21.toFixed(3)}`;
+        document.getElementById(
+          "result-SDG11"
+        ).textContent = `SDG11: ${totalSDG11.toFixed(3)}`;
+
+        // Ανατροφοδότηση για I20
+        const feedbackI20 = document.getElementById("feedbackI20");
+        if (totalI20 <= 2.25) {
+          feedbackI20.textContent =
+            "Η απόδοση του δείκτη I20 είναι χαμηλή. Χρειάζονται βελτιώσεις.";
+          feedbackI20.className = "low-performance";
+        } else {
+          feedbackI20.textContent =
+            "Η απόδοση του δείκτη I20 είναι ικανοποιητική.";
+          feedbackI20.className = "good-performance";
+        }
+
+        // Ανατροφοδότηση για I21
+        const feedbackI21 = document.getElementById("feedbackI21");
+        if (totalI21 <= 2) {
+          feedbackI21.textContent =
+            "Η απόδοση του δείκτη I21 είναι χαμηλή. Χρειάζονται βελτιώσεις.";
+          feedbackI21.className = "low-performance";
+        } else {
+          feedbackI21.textContent =
+            "Η απόδοση του δείκτη I21 είναι ικανοποιητική.";
+          feedbackI21.className = "good-performance";
+        }
+
+        // Ενεργοποίηση κουμπιού επόμενης σελίδας
+        document.getElementById("next-button").disabled = false;
+      }
+
+      // Μετάβαση στη σελίδα SDG12
+      function navigateToSDG12() {
+        window.location.href = "sdg12.html";
+      }
+    </script>
+  </body>
+</html>
