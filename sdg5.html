@@ -179,9 +179,10 @@
   <script>
     // Υπολογισμός αποτελεσμάτων
     function calculateResults() {
-      const femStaffI10 = 0.257;
-      const femStaffI11 = 0.427;
-      const femStaffI12 = 0.123;
+      const weight9 = 0.193;
+      const weight10 = 0.257;
+      const weight11 = 0.427;
+      const weight12 = 0.123;
 
         // Εισαγωγή δεδομένων για I8
       const refFemStaff = parseFloat(document.getElementById("ref-femStaff").value);
@@ -201,7 +202,7 @@
 
     document.getElementById("result-I9").textContent = 
     ratio < 1 ? "Το αποτέλεσμα του έτους αξιολόγησης είναι μικρότερο από το έτος αναφοράς." 
-              : `Σταθμισμένο I9: ${(1 / ratio).toFixed(2)}`;
+              : `Σταθμισμένο I9: ${(weight9 * ratio).toFixed(2)}`;
   
       const I10Val1 = parseFloat(document.getElementById("I10-val1").value);
       const I10Val2 = parseFloat(document.getElementById("I10-val2").value);
@@ -219,10 +220,10 @@
       const wwI11 = (I11Val1 + I11Val2 + I11Val3);
       const wwI12 = (I12Val1 + I12Val2 + I12Val3);
   
-      const totalI10 = wwI10 * femStaffI10;
-      const totalI11 = wwI11 * femStaffI11;
-      const totalI12 = wwI12 * femStaffI12;
-      const totalSDG5 = totalI10 + totalI11 + totalI12;
+      const totalI10 = wwI10 * weight10;
+      const totalI11 = wwI11 * weight11;
+      const totalI12 = wwI12 * weight12;
+      const totalSDG5 = totalI10 + totalI11 + totalI12 + weight9 * ratio;
   
       document.getElementById("result-I10").textContent = `Σταθμισμένο I10: ${totalI10.toFixed(2)}`;
       document.getElementById("result-I11").textContent = `Σταθμισμένο I11: ${totalI11.toFixed(2)}`;

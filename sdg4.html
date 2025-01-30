@@ -128,7 +128,8 @@
 
   <script>
     function calculateResults() {
-  const weightI7 = 0.42;
+  const weightI7 = 0.701;
+  const weightI8 = 0.299
 
   // Εισαγωγή δεδομένων για I8
   const refWeight = parseFloat(document.getElementById("ref-weight").value);
@@ -148,7 +149,7 @@
 
   document.getElementById("result-I8").textContent = 
     ratio < 1 ? "Το αποτέλεσμα του έτους αξιολόγησης είναι μικρότερο από το έτος αναφοράς." 
-              : `Σταθμισμένο I8: ${(1 / ratio).toFixed(2)}`;
+              : `Σταθμισμένο I8: ${(weightI8 * ratio).toFixed(2)}`;
 
   // Εισαγωγή δεδομένων για I7
   const I7Val1 = parseFloat(document.getElementById("I7-val1").value);
