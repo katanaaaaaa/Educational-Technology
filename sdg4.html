@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Υπολογισμός sdg4</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    h1, h3 {
+      text-align: center;
+    }
+    div {
+      margin-bottom: 20px;
+      padding: 15px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    label {
+      display: block;
+      margin: 5px 0;
+    }
+    select, input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-top: 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    button:hover:not(:disabled) {
+      background-color: #0056b3;
+    }
+    h2, p {
+      text-align: center;
+    }
+    .low-performance {
+      color: red;
+      font-weight: bold;
+    }
+    .good-performance {
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Υπολογισμός Δεικτών sdg4</h1>
+  
+
+  <!-- Φόρμα για τον Δείκτη I7 -->
+  <div>
+    <h3>Δείκτης I7</h3>
+    <label for="I7-val1">Τιμή 1:</label>
+    <select id="I7-val1">
+      <option value="0">0</option>
+      <option value="0.25">0.25</option>
+      <option value="1">1</option>
+    </select>
+
+    <label for="I7-val2">Τιμή 2:</label>
+    <select id="I7-val2">
+      <option value="0">0</option>
+      <option value="1">1</option>
+    </select>
+
+    <label for="I7-val3">Τιμή 3:</label>
+    <select id="I7-val3">
+      <option value="0">0</option>
+      <option value="1">1</option>
+    </select>
+  </div>\
+
+<!-- Φόρμα για τον Δείκτη I8-->
+  <div>
+    <h3>Δείκτης I8</h3>
+    <label for="ref-weight">Αιθμός πρωτοετών φοιτητών (Έτος Αναφοράς):</label>
+    <input type="number" id="ref-weight" placeholder="Εισάγετε τον αριθμό πρωτοετών φοιτητών" required>
+
+    <label for="ref-population">Αριθμός αποφοιτήσαντων (Έτος Αναφοράς):</label>
+    <input type="number" id="ref-population" placeholder="Εισάγετε τον αριθμό αποφοιτήσαντων" required>
+
+    <label for="eval-weight">Αριθμός πρωτοετών φοιτητών (Έτος Αξιολόγησης):</label>
+    <input type="number" id="eval-weight" placeholder="Εισάγετε ταν αριθμό πρωτοετών φοιτητών" required>
+
+    <label for="eval-population">ΑΡιθμός αποφοιτήσαντων (Έτος Αξιολόγησης):</label>
+    <input type="number" id="eval-population" placeholder="Εισάγετε τον αριθμό αποφοιτήσαντων" required>
+  </div>
+
+  <!-- Κουμπί Υπολογισμού -->
+  <button id="calculate-button" onclick="calculateResults()">Υπολόγισε</button>
+
+  <!-- Εμφάνιση Αποτελεσμάτων -->
+  <h2>Αποτελέσματα</h2>
+  <p id="result-I7">Συνολικό I7 (πριν τον πολλαπλασιασμό): -</p>
+  <p id="result-weighted-I7">Σταθμισμένο I7: -</p>
+  <p id="feedback-I7"></p>
+  <p id="result-I8">Σταθμισμένο I8: -</p>
+
+
+  <!-- Κουμπί για μετάβαση στη σελίδα sdg4 -->
+  <br><br>
+  <button id="next-button" onclick="navigateTosdg5()" disabled>Μετάβαση στο sdg5</button>
+
+  <script>
+    function calculateResults() {
+  const weightI7 = 0.701;
+  const weightI8 = 0.299
+
+  // Εισαγωγή δεδομένων για I8
+  const refWeight = parseFloat(document.getElementById("ref-weight").value);
+  const refPopulation = parseFloat(document.getElementById("ref-population").value);
+  const evalWeight = parseFloat(document.getElementById("eval-weight").value);
+  const evalPopulation = parseFloat(document.getElementById("eval-population").value);
+
+  if (isNaN(refWeight) || isNaN(refPopulation) || isNaN(evalWeight) || isNaN(evalPopulation) || 
+      refPopulation <= 0 || evalPopulation <= 0) {
+    alert("Παρακαλώ εισάγετε έγκυρες αριθμητικές τιμές για όλα τα πεδία του I8.");
+    return;
+  }
+
+  const refPerCapita = refWeight / refPopulation;
+  const evalPerCapita = evalWeight / evalPopulation;
+  const ratio = evalPerCapita / refPerCapita;
+
+  document.getElementById("result-I8").textContent = 
+    ratio < 1 ? "Το αποτέλεσμα του έτους αξιολόγησης είναι μικρότερο από το έτος αναφοράς." 
+              : `Σταθμισμένο I8: ${(weightI8 * ratio).toFixed(2)}`;
+
+  // Εισαγωγή δεδομένων για I7
+  const I7Val1 = parseFloat(document.getElementById("I7-val1").value);
+  const I7Val2 = parseFloat(document.getElementById("I7-val2").value);
+  const I7Val3 = parseFloat(document.getElementById("I7-val3").value);
+
+  const totalI7 = I7Val1 + I7Val2 + I7Val3;
+  const weightedI7 = totalI7 * weightI7;
+  
+  document.getElementById("result-I7").textContent = `Συνολικό I7 (πριν τον πολλαπλασιασμό): ${totalI7.toFixed(2)}`;
+  document.getElementById("result-weighted-I7").textContent = `Σταθμισμένο I7: ${weightedI7.toFixed(2)}`;
+
+  const feedbackI7 = document.getElementById("feedback-I7");
+  if (totalI7 < 2.25) {
+    feedbackI7.textContent = "IF VALUES 0-2,25 THEN MORE THINGS CAN BE DONE";
+    feedbackI7.className = "low-performance";
+  } else {
+    feedbackI7.textContent = "Good performance!";
+    feedbackI7.className = "good-performance";
+  }
+
+  // Ενεργοποίηση κουμπιού επόμενης σελίδας
+  document.getElementById("next-button").disabled = false;
+}
+
+    
+    // Μετάβαση στη σελίδα sdg4
+    function navigateTosdg5() {
+      window.location.href = "sdg5.html";
+    }
+
+    
+  </script>
+</body>
+</html>
