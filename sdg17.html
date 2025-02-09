@@ -221,10 +221,10 @@
     <p id="result-SDG17">SDG17: -</p>
 
     <!-- Κουμπί για μετάβαση στη σελίδα SDG12 -->
-    <!-- <br /><br />
-    <button id="next-button" onclick="navigateToSDG12()" disabled>
-      Μετάβαση στο SDG12
-    </button> -->
+    <br /><br />
+    <button id="next-button" onclick="navigateTofinal()" disabled>
+      Μετάβαση στα τελικά αποτελέσματα
+    </button>
 
     <script>
       // Υπολογισμός αποτελεσμάτων
@@ -359,13 +359,13 @@
         }
 
         // Ενεργοποίηση κουμπιού επόμενης σελίδας
-        // document.getElementById("next-button").disabled = false;
+        document.getElementById("next-button").disabled = false;
       }
 
-      // Μετάβαση στη σελίδα SDG12
-      //   function navigateToSDG12() {
-      //     window.location.href = "sdg12.html";
-      //   }
+      // Μετάβαση στη σελίδα final
+      function navigateTofinal() {
+        window.location.href = "final.html";
+      }
     </script>
   </body>
 </html>
