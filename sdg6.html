@@ -1,187 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Υπολογισμός SDG6</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background-color: #f9f9f9;
-      color: #333;
-    }
-    h1, h3 {
-      text-align: center;
-    }
-    div {
-      margin-bottom: 20px;
-      padding: 15px;
-      background-color: #fff;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    label {
-      display: block;
-      margin: 5px 0;
-    }
-    select, input {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-    }
-    button {
-      display: block;
-      width: 100%;
-      padding: 10px;
-      margin-top: 20px;
-      background-color: #007BFF;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    button:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }
-    button:hover:not(:disabled) {
-      background-color: #0056b3;
-    }
-    h2, p {
-      text-align: center;
-    }
-    .low-performance {
-      color: red;
-      font-weight: bold;
-    }
-    .good-performance {
-      color: green;
-      font-weight: bold;
-    }
-    .warning {
-      color: red;
-      font-weight: bold;
-      text-align: center;
-    }
-  </style>
-</head>
-<body>
-  <h1>Υπολογισμός Δεικτών SDG6</h1>
-  
-  <!-- Φόρμα για τον Δείκτη I13 -->
-  <div>
-    <h3>Δείκτης I13</h3>
-    <label for="ref-water">Νερό σε κυβικά μέτρα (Έτος Αναφοράς):</label>
-    <input type="number" id="ref-water" placeholder="Εισάγετε τα μέτρα" required>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Υπολογισμός SDG6</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Υπολογισμός Δεικτών SDG6</h1>
 
-    <label for="ref-population">Πληθυσμός Πανεπιστημιούπολης (Έτος Αναφοράς):</label>
-    <input type="number" id="ref-population" placeholder="Εισάγετε τον πληθυσμό" required>
+    <!-- Φόρμα για τον Δείκτη I13 -->
+    <div>
+      <h3>Δείκτης I13</h3>
+      <label for="ref-water">Νερό σε κυβικά μέτρα (Έτος Αναφοράς):</label>
+      <input
+        type="number"
+        id="ref-water"
+        placeholder="Εισάγετε τα μέτρα"
+        required
+      />
 
-    <label for="eval-water">Νερό σε κυβικά μέτρα (Έτος Αξιολόγησης):</label>
-    <input type="number" id="eval-water" placeholder="Εισάγετε τα μέτρα" required>
+      <label for="ref-population"
+        >Πληθυσμός Πανεπιστημιούπολης (Έτος Αναφοράς):</label
+      >
+      <input
+        type="number"
+        id="ref-population"
+        placeholder="Εισάγετε τον πληθυσμό"
+        required
+      />
 
-    <label for="eval-population">Πληθυσμός Πανεπιστημιούπολης (Έτος Αξιολόγησης):</label>
-    <input type="number" id="eval-population" placeholder="Εισάγετε τον πληθυσμό" required>
-  </div>
+      <label for="eval-water">Νερό σε κυβικά μέτρα (Έτος Αξιολόγησης):</label>
+      <input
+        type="number"
+        id="eval-water"
+        placeholder="Εισάγετε τα μέτρα"
+        required
+      />
 
-  <!-- Φόρμα για τον Δείκτη I14 -->
-  <div>
-    <h3>Δείκτης I14</h3>
-    <label for="I14-val1">Τιμή 1:</label>
-    <select id="I14-val1">
-      <option value="0">0</option>
-      <option value="1">1</option>
-    </select>
+      <label for="eval-population"
+        >Πληθυσμός Πανεπιστημιούπολης (Έτος Αξιολόγησης):</label
+      >
+      <input
+        type="number"
+        id="eval-population"
+        placeholder="Εισάγετε τον πληθυσμό"
+        required
+      />
+    </div>
 
-    <label for="I14-val2">Τιμή 2:</label>
-    <select id="I14-val2">
-      <option value="0">0</option>
-      <option value="1">1</option>
-    </select>
+    <!-- Φόρμα για τον Δείκτη I14 -->
+    <div>
+      <h3>Δείκτης I14</h3>
+      <label for="I14-val1">Τιμή 1:</label>
+      <select id="I14-val1">
+        <option value="0">0</option>
+        <option value="1">1</option>
+      </select>
 
-    <label for="I14-val3">Τιμή 3:</label>
-    <select id="I14-val3">
-      <option value="0">0</option>
-      <option value="1">1</option>
-    </select>
-  </div>
+      <label for="I14-val2">Τιμή 2:</label>
+      <select id="I14-val2">
+        <option value="0">0</option>
+        <option value="1">1</option>
+      </select>
 
-  <!-- Κουμπί Υπολογισμού -->
-  <button id="calculate-button" onclick="calculateResults()">Υπολόγισε</button>
+      <label for="I14-val3">Τιμή 3:</label>
+      <select id="I14-val3">
+        <option value="0">0</option>
+        <option value="1">1</option>
+      </select>
+    </div>
 
-  <!-- Εμφάνιση Αποτελεσμάτων -->
-  <h2>Αποτελέσματα</h2>
-  <p id="result-I13">I13: -</p>
-  <p id="result-I14">I14: -</p>
-  <p id="feedback-I14" class="warning"></p>
+    <!-- Κουμπί Υπολογισμού -->
+    <button id="calculate-button" onclick="calculateResults()">
+      Υπολόγισε
+    </button>
 
-  <!-- Κουμπί για μετάβαση στη σελίδα SDG7 -->
-  <br><br>
-  <button id="next-button" onclick="navigateToSDG7()" disabled>Μετάβαση στο SDG7</button>
+    <!-- Εμφάνιση Αποτελεσμάτων -->
+    <h2>Αποτελέσματα</h2>
+    <p id="result-I13">Σταθμισμένο I13: -</p>
+    <p id="result-I14">Συνολικό I14 (πριν τον πολλαπλασιασμό): -</p>
+    <p id="result-weighted-i14">Σταθμισμένο I14: -</p>
+    <p id="feedback-I14" class="warning"></p>
+    <p id="result-SDG6">SDG6: -</p>
 
-  <script>
-    function calculateResults() {
-  const weightI13 = 0.552;
-  const weightI14 = 0.448;
+    <!-- Κουμπί για μετάβαση στη σελίδα SDG7 -->
+    <br /><br />
+    <button id="next-button" onclick="navigateToSDG7()" disabled>
+      Μετάβαση στο SDG7
+    </button>
 
-  // Εισαγωγή δεδομένων για I13
-  const refwater = parseFloat(document.getElementById("ref-water").value);
-  const refPopulation = parseFloat(document.getElementById("ref-population").value);
-  const evalwater = parseFloat(document.getElementById("eval-water").value);
-  const evalPopulation = parseFloat(document.getElementById("eval-population").value);
+    <script>
+      function calculateResults() {
+        const weightI13 = 0.552;
+        const weightI14 = 0.448;
 
-  if (isNaN(refwater) || isNaN(refPopulation) || isNaN(evalwater) || isNaN(evalPopulation) || 
-      refPopulation <= 0 || evalPopulation <= 0) {
-    alert("Παρακαλώ εισάγετε έγκυρες αριθμητικές τιμές για όλα τα πεδία του I13.");
-    return;
-  }
+        // Εισαγωγή δεδομένων για I13
+        const refwater = parseFloat(document.getElementById("ref-water").value);
+        const refPopulation = parseFloat(
+          document.getElementById("ref-population").value
+        );
+        const evalwater = parseFloat(
+          document.getElementById("eval-water").value
+        );
+        const evalPopulation = parseFloat(
+          document.getElementById("eval-population").value
+        );
 
-  const refPerCapita = refwater / refPopulation;
-  const evalPerCapita = evalwater / evalPopulation;
-  const ratio = evalPerCapita / refPerCapita;
-  const b_totalI13 = 1 / ratio;
-  let totalI13 = b_totalI13 * weightI13;
+        if (
+          isNaN(refwater) ||
+          isNaN(refPopulation) ||
+          isNaN(evalwater) ||
+          isNaN(evalPopulation) ||
+          refPopulation <= 0 ||
+          evalPopulation <= 0
+        ) {
+          alert(
+            "Παρακαλώ εισάγετε έγκυρες αριθμητικές τιμές για όλα τα πεδία του I13."
+          );
+          return;
+        }
 
-  if (ratio < 1) {
-    totalI13 = 0;
-  }
+        const refPerCapita = refwater / refPopulation;
+        const evalPerCapita = evalwater / evalPopulation;
+        const ratio = evalPerCapita / refPerCapita;
+        const b_totalI13 = 1 / ratio;
+        let totalI13 = b_totalI13 * weightI13;
 
-document.getElementById("result-I13").textContent = `I13: ${b_totalI13.toFixed(3)}`;
+        if (ratio < 1) {
+          totalI13 = 0;
+        }
 
+        document.getElementById(
+          "result-I13"
+        ).textContent = `Σταθμισμένο I13: ${totalI13.toFixed(3)}`;
 
-  // Εισαγωγή δεδομένων για I14
-  const I14Val1 = parseFloat(document.getElementById("I14-val1").value);
-  const I14Val2 = parseFloat(document.getElementById("I14-val2").value);
-  const I14Val3 = parseFloat(document.getElementById("I14-val3").value);
+        // Εισαγωγή δεδομένων για I14
+        const I14Val1 = parseFloat(document.getElementById("I14-val1").value);
+        const I14Val2 = parseFloat(document.getElementById("I14-val2").value);
+        const I14Val3 = parseFloat(document.getElementById("I14-val3").value);
 
-  const totalI14 = I14Val1 + I14Val2 + I14Val3;
-  const weightedI14 = totalI14 * weightI14;
-  
-  document.getElementById("result-I14").textContent = `I14: ${totalI14.toFixed(0)}`;
-  document.getElementById("feedback-I14").textContent = totalI14 < 2 ? "More things can be done" : "";
+        const totalI14 = I14Val1 + I14Val2 + I14Val3;
+        const weightedI14 = totalI14 * weightI14;
+        const totalSDG6 = totalI13 + weightedI14;
 
-  localStorage.setItem("I13", totalI13);
-  localStorage.setItem("I14", totalI14);
+        document.getElementById(
+          "result-I14"
+        ).textContent = `Συνολικό I14 (πριν τον πολλαπλασιασμό): ${totalI14.toFixed(
+          3
+        )}`;
+        document.getElementById(
+          "result-weighted-i14"
+        ).textContent = `Σταθμισμένο I14: ${weightedI14.toFixed(3)}`;
+        document.getElementById(
+          "result-SDG6"
+        ).textContent = `SDG6: ${totalSDG6.toFixed(3)}`;
 
-  // Ενεργοποίηση κουμπιού επόμενης σελίδας
-  document.getElementById("next-button").disabled = false;
-}
+        // Ανατροφοδότηση για I14
+        const feedbackI14 = document.getElementById("feedback-I14");
+        if (totalI14 < 2) {
+          feedbackI14.textContent = "More things can be done";
+          feedbackI14.className = "low-performance";
+        } else {
+          feedbackI14.textContent = "Good performance!";
+          feedbackI14.className = "good-performance";
+        }
 
-    
-    // Μετάβαση στη σελίδα SDG2
-    function navigateToSDG7() {
-      window.location.href = "sdg7.html";
-    }
+        localStorage.setItem("I13", totalI13);
+        localStorage.setItem("I14", weightedI14);
 
-    
-  </script>
-</body>
+        // Ενεργοποίηση κουμπιού επόμενης σελίδας
+        document.getElementById("next-button").disabled = false;
+      }
+
+      // Μετάβαση στη σελίδα SDG7
+      function navigateToSDG7() {
+        window.location.href = "sdg7.html";
+      }
+    </script>
+  </body>
 </html>

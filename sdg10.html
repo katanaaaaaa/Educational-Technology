@@ -4,72 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Υπολογισμός SDG10</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-        background-color: #f9f9f9;
-        color: #333;
-      }
-      h1,
-      h3 {
-        text-align: center;
-      }
-      div {
-        margin-bottom: 20px;
-        padding: 15px;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        max-width: 500px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      label {
-        display: block;
-        margin: 5px 0;
-      }
-      select,
-      input {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-      }
-      button {
-        display: block;
-        width: 100%;
-        padding: 10px;
-        margin-top: 20px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        font-size: 16px;
-        cursor: pointer;
-      }
-      button:disabled {
-        background-color: #ccc;
-        cursor: not-allowed;
-      }
-      button:hover:not(:disabled) {
-        background-color: #0056b3;
-      }
-      h2,
-      p {
-        text-align: center;
-      }
-      .low-performance {
-        color: red;
-        font-weight: bold;
-      }
-      .good-performance {
-        color: green;
-        font-weight: bold;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <h1>Υπολογισμός Δεικτών SDG10</h1>
@@ -105,7 +40,7 @@
     <h2>Αποτελέσματα</h2>
     <p id="result-i19">Συνολικό I19 (πριν τον πολλαπλασιασμό): -</p>
     <p id="result-weighted-i19">Σταθμισμένο I19: -</p>
-    <p id="feedbackΙ19"></p>
+    <p id="feedbackI19"></p>
     <p id="result-SDG10">SDG10: -</p>
 
     <!-- Κουμπί για μετάβαση στη σελίδα SDG11 -->
@@ -140,14 +75,16 @@
         ).textContent = `SDG10: ${totalSDG10.toFixed(3)}`;
 
         // Ανατροφοδότηση για I19
-        const feedbackΙ19 = document.getElementById("feedbackΙ19");
-        if (totalI19 <= 2) {
-          feedbackΙ19.textContent = "MORE THINGS CAN BE DONE";
-          feedbackΙ19.className = "low-performance";
+        const feedbackI19 = document.getElementById("feedbackI19");
+        if (totalI19 < 2) {
+          feedbackI19.textContent = "More things can be done";
+          feedbackI19.className = "low-performance";
         } else {
-          feedbackΙ19.textContent = "Good performance!";
-          feedbackΙ19.className = "good-performance";
+          feedbackI19.textContent = "Good performance!";
+          feedbackI19.className = "good-performance";
         }
+
+        localStorage.setItem("I19", weightedI19);
 
         // Ενεργοποίηση κουμπιού επόμενης σελίδας
         document.getElementById("next-button").disabled = false;

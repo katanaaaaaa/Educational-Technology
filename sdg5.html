@@ -1,253 +1,285 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Υπολογισμός SDG5</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background-color: #f9f9f9;
-      color: #333;
-    }
-    h1, h3 {
-      text-align: center;
-    }
-    div {
-      margin-bottom: 20px;
-      padding: 15px;
-      background-color: #fff;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    label {
-      display: block;
-      margin: 5px 0;
-    }
-    select {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    button {
-      display: block;
-      width: 100%;
-      padding: 10px;
-      margin-top: 20px;
-      background-color: #007BFF;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    button:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }
-    button:hover:not(:disabled) {
-      background-color: #0056b3;
-    }
-    h2, p {
-      text-align: center;
-    }
-    .low-performance {
-      color: red;
-      font-weight: bold;
-    }
-    .good-performance {
-      color: green;
-      font-weight: bold;
-    }
-    .warning {
-      color: red;
-      font-weight: bold;
-      text-align: center;
-    }
-  </style>
-</head>
-<body>
-  <h1>Υπολογισμός Δεικτών SDG5</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Υπολογισμός SDG5</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Υπολογισμός Δεικτών SDG5</h1>
 
-  <!-- Φόρμα για τον Δείκτη I9-->
-  <div>
-    <h3>Δείκτης I9</h3>
-    <label for="ref-femStaff">Αριθμός Γυναικείου Ακαδημαικού Προσωπικού (Έτος Αναφοράς):</label>
-    <input type="number" id="ref-femStaff" placeholder="Εισάγετε τον αριθμό του Γυναικείου Ακαδημαικού Προσωπικού" required>
+    <!-- Φόρμα για τον Δείκτη I9-->
+    <div>
+      <h3>Δείκτης I9</h3>
+      <label for="ref-femStaff"
+        >Αριθμός Γυναικείου Ακαδημαικού Προσωπικού (Έτος Αναφοράς):</label
+      >
+      <input
+        type="number"
+        id="ref-femStaff"
+        placeholder="Εισάγετε τον αριθμό του Γυναικείου Ακαδημαικού Προσωπικού"
+        required
+      />
 
-    <label for="ref-graduates">Αριθμός αποφοιτήσαντων (Έτος Αναφοράς):</label>
-    <input type="number" id="ref-graduates" placeholder="Εισάγετε τον αριθμό αποφοιτήσαντων" required>
+      <label for="ref-graduates">Αριθμός αποφοιτήσαντων (Έτος Αναφοράς):</label>
+      <input
+        type="number"
+        id="ref-graduates"
+        placeholder="Εισάγετε τον αριθμό αποφοιτήσαντων"
+        required
+      />
 
-    <label for="eval-femStaff">Αριθμός Γυναικείου Ακαδημαικού Προσωπικού (Έτος Αξιολόγησης):</label>
-    <input type="number" id="eval-femStaff" placeholder="Εισάγετε τον αριθμό Γυναικείου Ακαδημαικού Προσωπικού" required>
+      <label for="eval-femStaff"
+        >Αριθμός Γυναικείου Ακαδημαικού Προσωπικού (Έτος Αξιολόγησης):</label
+      >
+      <input
+        type="number"
+        id="eval-femStaff"
+        placeholder="Εισάγετε τον αριθμό Γυναικείου Ακαδημαικού Προσωπικού"
+        required
+      />
 
-    <label for="eval-graduates">ΑΡιθμός αποφοιτήσαντων (Έτος Αξιολόγησης):</label>
-    <input type="number" id="eval-graduates" placeholder="Εισάγετε τον αριθμό αποφοιτήσαντων" required>
-  </div>
+      <label for="eval-graduates"
+        >ΑΡιθμός αποφοιτήσαντων (Έτος Αξιολόγησης):</label
+      >
+      <input
+        type="number"
+        id="eval-graduates"
+        placeholder="Εισάγετε τον αριθμό αποφοιτήσαντων"
+        required
+      />
+    </div>
 
-  <!-- Φόρμα για το Ι10 -->
-  <div>
-    <h3>Δείκτης I10</h3>
-    <label for="I10-val1">Τιμή 1:</label>
-    <select id="I10-val1">
-      <option value="0">0</option>
-      <option value="1">1</option>
-    </select>
+    <!-- Φόρμα για το Ι10 -->
+    <div>
+      <h3>Δείκτης I10</h3>
+      <label for="I10-val1">Τιμή 1:</label>
+      <select id="I10-val1">
+        <option value="0">0</option>
+        <option value="1">1</option>
+      </select>
 
-    <label for="I10-val2">Τιμή 2:</label>
-    <select id="I10-val2">
-      <option value="0">0</option>
-      <option value="1">1</option>
-    </select>
+      <label for="I10-val2">Τιμή 2:</label>
+      <select id="I10-val2">
+        <option value="0">0</option>
+        <option value="1">1</option>
+      </select>
 
-    <label for="I10-val3">Τιμή 3:</label>
-    <select id="I10-val3">
-      <option value="0">0</option>
-      <option value="1">1</option>
-    </select>
-  </div>
-  
-  <!-- Φόρμα για το Ι11 -->
-  <div>
-    <h3>Δείκτης I11</h3>
-    <label for="I11-val1">Τιμή 1:</label>
-    <select id="I11-val1">
-      <option value="0">0</option>
-      <option value="1">1</option>
-    </select>
+      <label for="I10-val3">Τιμή 3:</label>
+      <select id="I10-val3">
+        <option value="0">0</option>
+        <option value="1">1</option>
+      </select>
+    </div>
 
-    <label for="I11-val2">Τιμή 2:</label>
-    <select id="I11-val2">
-      <option value="0">0</option>
-      <option value="1">1</option>
-    </select>
+    <!-- Φόρμα για το Ι11 -->
+    <div>
+      <h3>Δείκτης I11</h3>
+      <label for="I11-val1">Τιμή 1:</label>
+      <select id="I11-val1">
+        <option value="0">0</option>
+        <option value="1">1</option>
+      </select>
 
-    <label for="I11-val3">Τιμή 3:</label>
-    <select id="I11-val3">
-      <option value="0">0</option>
-      <option value="1">1</option>
-    </select>
-  </div>
+      <label for="I11-val2">Τιμή 2:</label>
+      <select id="I11-val2">
+        <option value="0">0</option>
+        <option value="1">1</option>
+      </select>
 
-  <!-- Φόρμα για το Ι12 -->
-  <div>
-    <h3>Δείκτης I12</h3>
-    <label for="I12-val1">Τιμή 1:</label>
-    <select id="I12-val1">
-      <option value="0">0</option>
-      <option value="1">1</option>
-    </select>
+      <label for="I11-val3">Τιμή 3:</label>
+      <select id="I11-val3">
+        <option value="0">0</option>
+        <option value="1">1</option>
+      </select>
+    </div>
 
-    <label for="I12-val2">Τιμή 2:</label>
-    <select id="I12-val2">
-      <option value="0">0</option>
-      <option value="1">1</option>
-    </select>
+    <!-- Φόρμα για το Ι12 -->
+    <div>
+      <h3>Δείκτης I12</h3>
+      <label for="I12-val1">Τιμή 1:</label>
+      <select id="I12-val1">
+        <option value="0">0</option>
+        <option value="1">1</option>
+      </select>
 
-    <label for="I12-val3">Τιμή 3:</label>
-    <select id="I12-val3">
-      <option value="0">0</option>
-      <option value="1">1</option>
-    </select>
-  </div>
+      <label for="I12-val2">Τιμή 2:</label>
+      <select id="I12-val2">
+        <option value="0">0</option>
+        <option value="1">1</option>
+      </select>
 
-  <!-- Κουμπί Υπολογισμού -->
-  <button id="calculate-button" onclick="calculateResults()">Υπολόγισε</button>
+      <label for="I12-val3">Τιμή 3:</label>
+      <select id="I12-val3">
+        <option value="0">0</option>
+        <option value="1">1</option>
+      </select>
+    </div>
 
-  <!-- Εμφάνιση Αποτελεσμάτων -->
-  <h2>Αποτελέσματα</h2>
-  <p id="result-I9">I9: -</p>
-  <p id="result-I10">I10: -</p>
-  <p id="feedbackΙ10" class="warning"></p>
-  <p id="result-I11">I11: -</p>
-  <p id="feedbackΙ11" class="warning"></p>
-  <p id="result-I12">I12: -</p>
-  <p id="feedbackΙ12" class="warning"></p>
-  
+    <!-- Κουμπί Υπολογισμού -->
+    <button id="calculate-button" onclick="calculateResults()">
+      Υπολόγισε
+    </button>
 
-  <!-- Κουμπί για μετάβαση στη σελίδα SDG6 -->
-  <br><br>
-  <button id="next-button" onclick="navigateToSDG6()" disabled>Μετάβαση στο SDG6</button>
+    <!-- Εμφάνιση Αποτελεσμάτων -->
+    <h2>Αποτελέσματα</h2>
+    <p id="result-I9">Σταθμισμένο I9: -</p>
+    <p id="result-I10">Συνολικό I10 (πριν τον πολλαπλασιασμό): -</p>
+    <p id="result-weighted-i10">Σταθμισμένο I10: -</p>
+    <p id="feedbackI10" class="warning"></p>
+    <p id="result-I11">Συνολικό I11 (πριν τον πολλαπλασιασμό): -</p>
+    <p id="result-weighted-i11">Σταθμισμένο I11: -</p>
+    <p id="feedbackI11" class="warning"></p>
+    <p id="result-I12">Συνολικό I12 (πριν τον πολλαπλασιασμό): -</p>
+    <p id="result-weighted-i12">Σταθμισμένο I12: -</p>
+    <p id="feedbackI12" class="warning"></p>
+    <p id="result-SDG5">SDG5: -</p>
 
-  <script>
-    // Υπολογισμός αποτελεσμάτων
-    function calculateResults() {
-      const weight9 = 0.193;
-      const weight10 = 0.257;
-      const weight11 = 0.427;
-      const weight12 = 0.123;
+    <!-- Κουμπί για μετάβαση στη σελίδα SDG6 -->
+    <br /><br />
+    <button id="next-button" onclick="navigateToSDG6()" disabled>
+      Μετάβαση στο SDG6
+    </button>
+
+    <script>
+      // Υπολογισμός αποτελεσμάτων
+      function calculateResults() {
+        const weight9 = 0.193;
+        const weight10 = 0.257;
+        const weight11 = 0.427;
+        const weight12 = 0.123;
 
         // Εισαγωγή δεδομένων για I8
-      const refFemStaff = parseFloat(document.getElementById("ref-femStaff").value);
-      const refGraduates = parseFloat(document.getElementById("ref-graduates").value);
-      const evalFemStaff = parseFloat(document.getElementById("eval-femStaff").value);
-      const evalGraduates = parseFloat(document.getElementById("eval-graduates").value);
-      
-      if (isNaN(refFemStaff) || isNaN(refGraduates) || isNaN(evalFemStaff) || isNaN(evalGraduates) || refGraduates <= 0 || evalGraduates <= 0) {
-            document.getElementById("result-I9").textContent = "Παρακαλώ εισάγετε έγκυρες αριθμητικές τιμές για όλα τα πεδία του I9.";
-        return;
+        const refFemStaff = parseFloat(
+          document.getElementById("ref-femStaff").value
+        );
+        const refGraduates = parseFloat(
+          document.getElementById("ref-graduates").value
+        );
+        const evalFemStaff = parseFloat(
+          document.getElementById("eval-femStaff").value
+        );
+        const evalGraduates = parseFloat(
+          document.getElementById("eval-graduates").value
+        );
+
+        if (
+          isNaN(refFemStaff) ||
+          isNaN(refGraduates) ||
+          isNaN(evalFemStaff) ||
+          isNaN(evalGraduates) ||
+          refGraduates <= 0 ||
+          evalGraduates <= 0
+        ) {
+          document.getElementById("result-I9").textContent =
+            "Παρακαλώ εισάγετε έγκυρες αριθμητικές τιμές για όλα τα πεδία του I9.";
+          return;
         }
 
+        const refPerCapita = refFemStaff / refGraduates;
+        const evalPerCapita = evalFemStaff / evalGraduates;
+        let ratio = evalPerCapita / refPerCapita;
+        if (ratio < 1) {
+          ratio = 0;
+        }
 
-    const refPerCapita = refFemStaff / refGraduates;
-    const evalPerCapita = evalFemStaff / evalGraduates;
-    let ratio = evalPerCapita / refPerCapita;
-    if(ratio<1){
-      ratio = 0;
-    }
-    
-  
-      const I10Val1 = parseFloat(document.getElementById("I10-val1").value);
-      const I10Val2 = parseFloat(document.getElementById("I10-val2").value);
-      const I10Val3 = parseFloat(document.getElementById("I10-val3").value);
-  
-      const I11Val1 = parseFloat(document.getElementById("I11-val1").value);
-      const I11Val2 = parseFloat(document.getElementById("I11-val2").value);
-      const I11Val3 = parseFloat(document.getElementById("I11-val3").value);
+        const I10Val1 = parseFloat(document.getElementById("I10-val1").value);
+        const I10Val2 = parseFloat(document.getElementById("I10-val2").value);
+        const I10Val3 = parseFloat(document.getElementById("I10-val3").value);
 
-      const I12Val1 = parseFloat(document.getElementById("I12-val1").value);
-      const I12Val2 = parseFloat(document.getElementById("I12-val2").value);
-      const I12Val3 = parseFloat(document.getElementById("I12-val3").value);
+        const I11Val1 = parseFloat(document.getElementById("I11-val1").value);
+        const I11Val2 = parseFloat(document.getElementById("I11-val2").value);
+        const I11Val3 = parseFloat(document.getElementById("I11-val3").value);
 
-      const wwI10 = (I10Val1 + I10Val2 + I10Val3);
-      const wwI11 = (I11Val1 + I11Val2 + I11Val3);
-      const wwI12 = (I12Val1 + I12Val2 + I12Val3);
-  
-      const totalI10 = wwI10 * weight10;
-      const totalI11 = wwI11 * weight11;
-      const totalI12 = wwI12 * weight12;
-  
-      document.getElementById("result-I9").textContent = `I9: ${ratio.toFixed(2)}`;
-      document.getElementById("result-I10").textContent = `I10: ${wwI10.toFixed(2)}`;
-      document.getElementById("result-I11").textContent = `I11: ${wwI11.toFixed(2)}`;
-      document.getElementById("result-I12").textContent = `I12: ${wwI12.toFixed(2)}`;
-  
-    
-      document.getElementById("feedbackΙ10").textContent = wwI10 < 2 ? "More things can be done" : "";
-      document.getElementById("feedbackΙ11").textContent = wwI11 < 2 ? "More things can be done" : "";
-      document.getElementById("feedbackΙ12").textContent = wwI12 < 2 ? "More things can be done" : "";
-       
-      localStorage.setItem("I9", weight9 * ratio);
-      localStorage.setItem("I10", totalI10);
-      localStorage.setItem("I11", totalI11);
-      localStorage.setItem("I12", totalI12);
+        const I12Val1 = parseFloat(document.getElementById("I12-val1").value);
+        const I12Val2 = parseFloat(document.getElementById("I12-val2").value);
+        const I12Val3 = parseFloat(document.getElementById("I12-val3").value);
 
-      
-      // Ενεργοποίηση κουμπιού επόμενης σελίδας
-      document.getElementById("next-button").disabled = false;
-    }
-  
-    // Μετάβαση στη σελίδα SDG6
-    function navigateToSDG6() {
-      window.location.href = "sdg6.html";
-    }
-  </script>
-  
-</body>
+        const wwI10 = I10Val1 + I10Val2 + I10Val3;
+        const wwI11 = I11Val1 + I11Val2 + I11Val3;
+        const wwI12 = I12Val1 + I12Val2 + I12Val3;
+
+        const totalI9 = weight9 * ratio;
+        const totalI10 = wwI10 * weight10;
+        const totalI11 = wwI11 * weight11;
+        const totalI12 = wwI12 * weight12;
+        const totalSDG5 = totalI9 + totalI10 + totalI11 + totalI12;
+
+        document.getElementById(
+          "result-I9"
+        ).textContent = `Σταθμισμένο I9: ${totalI9.toFixed(3)}`;
+        document.getElementById(
+          "result-I10"
+        ).textContent = `Συνολικό I10 (πριν τον πολλαπλασιασμό): ${wwI10.toFixed(
+          3
+        )}`;
+        document.getElementById(
+          "result-weighted-i10"
+        ).textContent = `Σταθμισμένο I10: ${totalI10.toFixed(3)}`;
+        document.getElementById(
+          "result-I11"
+        ).textContent = `Συνολικό I11 (πριν τον πολλαπλασιασμό): ${wwI11.toFixed(
+          3
+        )}`;
+        document.getElementById(
+          "result-weighted-i11"
+        ).textContent = `Σταθμισμένο I11: ${totalI11.toFixed(3)}`;
+        document.getElementById(
+          "result-I12"
+        ).textContent = `Συνολικό I12 (πριν τον πολλαπλασιασμό): ${wwI12.toFixed(
+          3
+        )}`;
+        document.getElementById(
+          "result-weighted-i12"
+        ).textContent = `Σταθμισμένο I12: ${totalI12.toFixed(3)}`;
+        document.getElementById(
+          "result-SDG5"
+        ).textContent = `SDG5: ${totalSDG5.toFixed(3)}`;
+
+        // Ανατροφοδότηση για I10
+        const feedbackI10 = document.getElementById("feedbackI10");
+        if (wwI10 < 2) {
+          feedbackI10.textContent = "More things can be done";
+          feedbackI10.className = "low-performance";
+        } else {
+          feedbackI10.textContent = "Good performance!";
+          feedbackI10.className = "good-performance";
+        }
+
+        // Ανατροφοδότηση για I11
+        const feedbackI11 = document.getElementById("feedbackI11");
+        if (wwI11 < 2) {
+          feedbackI11.textContent = "More things can be done";
+          feedbackI11.className = "low-performance";
+        } else {
+          feedbackI11.textContent = "Good performance!";
+          feedbackI11.className = "good-performance";
+        }
+
+        // Ανατροφοδότηση για I12
+        const feedbackI12 = document.getElementById("feedbackI12");
+        if (wwI12 <= 2.25) {
+          feedbackI12.textContent = "More things can be done";
+          feedbackI12.className = "low-performance";
+        } else {
+          feedbackI12.textContent = "Good performance!";
+          feedbackI12.className = "good-performance";
+        }
+
+        localStorage.setItem("I9", totalI9);
+        localStorage.setItem("I10", totalI10);
+        localStorage.setItem("I11", totalI11);
+        localStorage.setItem("I12", totalI12);
+
+        // Ενεργοποίηση κουμπιού επόμενης σελίδας
+        document.getElementById("next-button").disabled = false;
+      }
+
+      // Μετάβαση στη σελίδα SDG6
+      function navigateToSDG6() {
+        window.location.href = "sdg6.html";
+      }
+    </script>
+  </body>
 </html>

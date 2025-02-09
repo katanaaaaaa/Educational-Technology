@@ -4,72 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Υπολογισμός SDG11</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-        background-color: #f9f9f9;
-        color: #333;
-      }
-      h1,
-      h3 {
-        text-align: center;
-      }
-      div {
-        margin-bottom: 20px;
-        padding: 15px;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        max-width: 500px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      label {
-        display: block;
-        margin: 5px 0;
-      }
-      select,
-      input {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-      }
-      button {
-        display: block;
-        width: 100%;
-        padding: 10px;
-        margin-top: 20px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        font-size: 16px;
-        cursor: pointer;
-      }
-      button:disabled {
-        background-color: #ccc;
-        cursor: not-allowed;
-      }
-      button:hover:not(:disabled) {
-        background-color: #0056b3;
-      }
-      h2,
-      p {
-        text-align: center;
-      }
-      .low-performance {
-        color: red;
-        font-weight: bold;
-      }
-      .good-performance {
-        color: green;
-        font-weight: bold;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <h1>Υπολογισμός Δεικτών SDG11</h1>
@@ -126,7 +61,7 @@
 
     <!-- Εμφάνιση Αποτελεσμάτων -->
     <h2>Αποτελέσματα</h2>
-    <p id="result-i20">Συνολικό I20 (πριν τον πολλαπλασιασμό):: -</p>
+    <p id="result-i20">Συνολικό I20 (πριν τον πολλαπλασιασμό): -</p>
     <p id="result-weighted-i20">Σταθμισμένο I20: -</p>
     <p id="feedbackI20"></p>
     <p id="result-i21">Συνολικό I21 (πριν τον πολλαπλασιασμό): -</p>
@@ -182,8 +117,8 @@
 
         // Ανατροφοδότηση για I20
         const feedbackI20 = document.getElementById("feedbackI20");
-        if (totalI20 <= 2.25) {
-          feedbackI20.textContent = "MORE THINGS CAN BE DONE";
+        if (totalI20 < 2.25) {
+          feedbackI20.textContent = "More things can be done";
           feedbackI20.className = "low-performance";
         } else {
           feedbackI20.textContent = "Good performance!";
@@ -192,13 +127,16 @@
 
         // Ανατροφοδότηση για I21
         const feedbackI21 = document.getElementById("feedbackI21");
-        if (totalI21 <= 2) {
-          feedbackI21.textContent = "MORE THINGS CAN BE DONE";
+        if (totalI21 < 2) {
+          feedbackI21.textContent = "More things can be done";
           feedbackI21.className = "low-performance";
         } else {
           feedbackI21.textContent = "Good performance!";
           feedbackI21.className = "good-performance";
         }
+
+        localStorage.setItem("I20", totalI20);
+        localStorage.setItem("I21", totalI21);
 
         // Ενεργοποίηση κουμπιού επόμενης σελίδας
         document.getElementById("next-button").disabled = false;

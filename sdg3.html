@@ -1,191 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Υπολογισμός SDG3</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background-color: #f9f9f9;
-      color: #333;
-    }
-    h1, h3 {
-      text-align: center;
-    }
-    div {
-      margin-bottom: 20px;
-      padding: 15px;
-      background-color: #fff;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    label {
-      display: block;
-      margin: 5px 0;
-    }
-    select {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    button {
-      display: block;
-      width: 100%;
-      padding: 10px;
-      margin-top: 20px;
-      background-color: #007BFF;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    button:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }
-    button:hover:not(:disabled) {
-      background-color: #0056b3;
-    }
-    h2, p {
-      text-align: center;
-    }
-    .low-performance {
-      color: red;
-      font-weight: bold;
-    }
-    .good-performance {
-      color: green;
-      font-weight: bold;
-    }
-  </style>
-</head>
-<body>
-  <h1>Υπολογισμός Δεικτών SDG3</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Υπολογισμός SDG3</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Υπολογισμός Δεικτών SDG3</h1>
 
-  <!-- Φόρμα για το Ι1 -->
-  <div>
-    <h3>Δείκτης I5</h3>
-    <label for="I5-val1">Τιμή 1:</label>
-    <select id="I5-val1">
-      <option value="0">0</option>
-      <option value="0.25">0.25</option>
-      <option value="1">1</option>
-    </select>
+    <!-- Φόρμα για το Ι1 -->
+    <div>
+      <h3>Δείκτης I5</h3>
+      <label for="I5-val1">Τιμή 1:</label>
+      <select id="I5-val1">
+        <option value="0">0</option>
+        <option value="0.25">0.25</option>
+        <option value="1">1</option>
+      </select>
 
-    <label for="I5-val2">Τιμή 2:</label>
-    <select id="I5-val2">
-      <option value="0">0</option>
-      <option value="1">1</option>
-    </select>
+      <label for="I5-val2">Τιμή 2:</label>
+      <select id="I5-val2">
+        <option value="0">0</option>
+        <option value="1">1</option>
+      </select>
 
-    <label for="I5-val3">Τιμή 3:</label>
-    <select id="I5-val3">
-      <option value="0">0</option>
-      <option value="1">1</option>
-    </select>
-  </div>
-  
-  <!-- Φόρμα για το Ι2 -->
-  <div>
-    <h3>Δείκτης I6</h3>
-    <label for="I6-val1">Τιμή 1:</label>
-    <select id="I6-val1">
-      <option value="0">0</option>
-      <option value="0.25">0.25</option>
-      <option value="1">1</option>
-    </select>
+      <label for="I5-val3">Τιμή 3:</label>
+      <select id="I5-val3">
+        <option value="0">0</option>
+        <option value="1">1</option>
+      </select>
+    </div>
 
-    <label for="I6-val2">Τιμή 2:</label>
-    <select id="I6-val2">
-      <option value="0">0</option>
-      <option value="1">1</option>
-    </select>
+    <!-- Φόρμα για το Ι2 -->
+    <div>
+      <h3>Δείκτης I6</h3>
+      <label for="I6-val1">Τιμή 1:</label>
+      <select id="I6-val1">
+        <option value="0">0</option>
+        <option value="0.25">0.25</option>
+        <option value="1">1</option>
+      </select>
 
-    <label for="I6-val3">Τιμή 3:</label>
-    <select id="I6-val3">
-      <option value="0">0</option>
-      <option value="1">1</option>
-    </select>
-  </div>
+      <label for="I6-val2">Τιμή 2:</label>
+      <select id="I6-val2">
+        <option value="0">0</option>
+        <option value="1">1</option>
+      </select>
 
-  <!-- Κουμπί Υπολογισμού -->
-  <button id="calculate-button" onclick="calculateResults()">Υπολόγισε</button>
+      <label for="I6-val3">Τιμή 3:</label>
+      <select id="I6-val3">
+        <option value="0">0</option>
+        <option value="1">1</option>
+      </select>
+    </div>
 
-  <!-- Εμφάνιση Αποτελεσμάτων -->
-  <h2>Αποτελέσματα</h2>
-  <p id="result-I5">I5: -</p>
-  <p id="feedbackΙ1"></p>
-  <p id="result-I6">I6: -</p>
-  <p id="feedbackΙ2"></p>
-  
+    <!-- Κουμπί Υπολογισμού -->
+    <button id="calculate-button" onclick="calculateResults()">
+      Υπολόγισε
+    </button>
 
-  <!-- Κουμπί για μετάβαση στη σελίδα SDG4 -->
-  <br><br>
-  <button id="next-button" onclick="navigateToSDG4()" disabled>Μετάβαση στο SDG4</button>
+    <!-- Εμφάνιση Αποτελεσμάτων -->
+    <h2>Αποτελέσματα</h2>
+    <p id="result-I5">Συνολικό I5 (πριν τον πολλαπλασιασμό): -</p>
+    <p id="result-weighted-i5">Σταθμισμένο I5: -</p>
+    <p id="feedbackΙ5"></p>
+    <p id="result-I6">Συνολικό I6 (πριν τον πολλαπλασιασμό): -</p>
+    <p id="result-weighted-i6">Σταθμισμένο I6: -</p>
+    <p id="feedbackΙ6"></p>
+    <p id="result-SDG3">SDG3: -</p>
 
-  <script>
-    // Υπολογισμός αποτελεσμάτων
-    function calculateResults() {
-      const weightI5 = 0.784;
-      const weightI6 = 0.216;
-  
-      const I5Val1 = parseFloat(document.getElementById("I5-val1").value);
-      const I5Val2 = parseFloat(document.getElementById("I5-val2").value);
-      const I5Val3 = parseFloat(document.getElementById("I5-val3").value);
-  
-      const I6Val1 = parseFloat(document.getElementById("I6-val1").value);
-      const I6Val2 = parseFloat(document.getElementById("I6-val2").value);
-      const I6Val3 = parseFloat(document.getElementById("I6-val3").value);
+    <!-- Κουμπί για μετάβαση στη σελίδα SDG4 -->
+    <br /><br />
+    <button id="next-button" onclick="navigateToSDG4()" disabled>
+      Μετάβαση στο SDG4
+    </button>
 
-      const b_totalI5= I5Val1 + I5Val2 + I5Val3;
-      const totalI5 = b_totalI5* weightI5;
-      const b_totalI6=  I6Val1 + I6Val2 + I6Val3;
-      const totalI6 = b_totalI6 * weightI6;
-  
-      document.getElementById("result-I5").textContent = `I5: ${b_totalI5.toFixed(2)}`;
-      document.getElementById("result-I6").textContent = `I6: ${b_totalI6.toFixed(2)}`;
-  
-      // Ανατροφοδότηση για I5
-      const feedbackΙ1 = document.getElementById("feedbackΙ1");
-      if (b_totalI5 < 2.25) {
-        feedbackΙ1.textContent = "More things can be done.";
-        feedbackΙ1.className = "low-performance";
-      } else {
-        feedbackΙ1.textContent = "";
-        feedbackΙ1.className = "";
+    <script>
+      // Υπολογισμός αποτελεσμάτων
+      function calculateResults() {
+        const weightI5 = 0.784;
+        const weightI6 = 0.216;
+
+        const I5Val1 = parseFloat(document.getElementById("I5-val1").value);
+        const I5Val2 = parseFloat(document.getElementById("I5-val2").value);
+        const I5Val3 = parseFloat(document.getElementById("I5-val3").value);
+
+        const I6Val1 = parseFloat(document.getElementById("I6-val1").value);
+        const I6Val2 = parseFloat(document.getElementById("I6-val2").value);
+        const I6Val3 = parseFloat(document.getElementById("I6-val3").value);
+
+        const b_totalI5 = I5Val1 + I5Val2 + I5Val3;
+        const totalI5 = b_totalI5 * weightI5;
+        const b_totalI6 = I6Val1 + I6Val2 + I6Val3;
+        const totalI6 = b_totalI6 * weightI6;
+        const totalSDG3 = totalI5 + totalI6;
+
+        document.getElementById(
+          "result-I5"
+        ).textContent = `Συνολικό I5 (πριν τον πολλαπλασιασμό): ${b_totalI5.toFixed(
+          3
+        )}`;
+        document.getElementById(
+          "result-weighted-i5"
+        ).textContent = `Σταθμισμένο I5: ${totalI5.toFixed(3)}`;
+        document.getElementById(
+          "result-I6"
+        ).textContent = `Συνολικό I6 (πριν τον πολλαπλασιασμό): ${b_totalI6.toFixed(
+          3
+        )}`;
+        document.getElementById(
+          "result-weighted-i6"
+        ).textContent = `Σταθμισμένο I6: ${totalI6.toFixed(3)}`;
+        document.getElementById(
+          "result-SDG3"
+        ).textContent = `SDG3: ${totalSDG3.toFixed(3)}`;
+
+        // Ανατροφοδότηση για I5
+        const feedbackΙ5 = document.getElementById("feedbackΙ5");
+        if (b_totalI5 < 2.25) {
+          feedbackΙ5.textContent = "More things can be done";
+          feedbackΙ5.className = "low-performance";
+        } else {
+          feedbackΙ5.textContent = "Good performance!";
+          feedbackΙ5.className = "good-performance";
+        }
+
+        // Ανατροφοδότηση για I6
+        const feedbackΙ6 = document.getElementById("feedbackΙ6");
+        if (b_totalI6 < 2.25) {
+          feedbackΙ6.textContent = "More things can be done";
+          feedbackΙ6.className = "low-performance";
+        } else {
+          feedbackΙ6.textContent = "Good performance!";
+          feedbackΙ6.className = "good-performance";
+        }
+
+        localStorage.setItem("I5", totalI5);
+        localStorage.setItem("I6", totalI6);
+
+        // Ενεργοποίηση κουμπιού επόμενης σελίδας
+        document.getElementById("next-button").disabled = false;
       }
-  
-      // Ανατροφοδότηση για I6
-      const feedbackΙ2 = document.getElementById("feedbackΙ2");
-      if (b_totalI6 < 2.25) {
-        feedbackΙ2.textContent = "More things can be done.";
-        feedbackΙ2.className = "low-performance";
-      } else {
-        feedbackΙ2.textContent = "";
-        feedbackΙ2.className = "";
+
+      // Μετάβαση στη σελίδα SDG4
+      function navigateToSDG4() {
+        window.location.href = "SDG4.html";
       }
-  
-
-      localStorage.setItem("I5", totalI5);
-      localStorage.setItem("I6", totalI6);
-
-      // Ενεργοποίηση κουμπιού επόμενης σελίδας
-      document.getElementById("next-button").disabled = false;
-    }
-  
-    // Μετάβαση στη σελίδα SDG4
-    function navigateToSDG4() {
-      window.location.href = "SDG4.html";
-    }
-  </script>
-  
-</body>
+    </script>
+  </body>
 </html>

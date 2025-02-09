@@ -4,72 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Υπολογισμός SDG12</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-        background-color: #f9f9f9;
-        color: #333;
-      }
-      h1,
-      h3 {
-        text-align: center;
-      }
-      div {
-        margin-bottom: 20px;
-        padding: 15px;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        max-width: 500px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      label {
-        display: block;
-        margin: 5px 0;
-      }
-      select,
-      input {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-      }
-      button {
-        display: block;
-        width: 100%;
-        padding: 10px;
-        margin-top: 20px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        font-size: 16px;
-        cursor: pointer;
-      }
-      button:disabled {
-        background-color: #ccc;
-        cursor: not-allowed;
-      }
-      button:hover:not(:disabled) {
-        background-color: #0056b3;
-      }
-      h2,
-      p {
-        text-align: center;
-      }
-      .low-performance {
-        color: red;
-        font-weight: bold;
-      }
-      .good-performance {
-        color: green;
-        font-weight: bold;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <h1>Υπολογισμός Δεικτών SDG12</h1>
@@ -270,8 +205,8 @@
 
         // Ανατροφοδότηση για I22
         const feedbackI22 = document.getElementById("feedbackI22");
-        if (totalI22 <= 2) {
-          feedbackI22.textContent = "MORE THINGS CAN BE DONE";
+        if (totalI22 < 2) {
+          feedbackI22.textContent = "More things can be done";
           feedbackI22.className = "low-performance";
         } else {
           feedbackI22.textContent = "Good performance!";
@@ -280,13 +215,17 @@
 
         // Ανατροφοδότηση για I23
         const feedbackI23 = document.getElementById("feedbackI23");
-        if (totalI23 <= 2) {
-          feedbackI23.textContent = "MORE THINGS CAN BE DONE";
+        if (totalI23 < 2) {
+          feedbackI23.textContent = "More things can be done";
           feedbackI23.className = "low-performance";
         } else {
           feedbackI23.textContent = "Good performance!";
           feedbackI23.className = "good-performance";
         }
+
+        localStorage.setItem("I22", weightedI22);
+        localStorage.setItem("I23", weightedI23);
+        localStorage.setItem("I24", totalI24);
 
         // Ενεργοποίηση κουμπιού επόμενης σελίδας
         document.getElementById("next-button").disabled = false;

@@ -4,72 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Υπολογισμός SDG16</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-        background-color: #f9f9f9;
-        color: #333;
-      }
-      h1,
-      h3 {
-        text-align: center;
-      }
-      div {
-        margin-bottom: 20px;
-        padding: 15px;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        max-width: 500px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      label {
-        display: block;
-        margin: 5px 0;
-      }
-      select,
-      input {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-      }
-      button {
-        display: block;
-        width: 100%;
-        padding: 10px;
-        margin-top: 20px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        font-size: 16px;
-        cursor: pointer;
-      }
-      button:disabled {
-        background-color: #ccc;
-        cursor: not-allowed;
-      }
-      button:hover:not(:disabled) {
-        background-color: #0056b3;
-      }
-      h2,
-      p {
-        text-align: center;
-      }
-      .low-performance {
-        color: red;
-        font-weight: bold;
-      }
-      .good-performance {
-        color: green;
-        font-weight: bold;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <h1>Υπολογισμός Δεικτών SDG16</h1>
@@ -103,8 +38,9 @@
 
     <!-- Εμφάνιση Αποτελεσμάτων -->
     <h2>Αποτελέσματα</h2>
-    <p id="result-i29">Σταθμισμένο I29: -</p>
-    <p id="feedbackΙ29"></p>
+    <p id="result-i29">Συνολικό I29 (πριν τον πολλαπλασιασμό): -</p>
+    <p id="result-weighted-i29">Σταθμισμένο I29: -</p>
+    <p id="feedbackI29"></p>
     <p id="result-SDG16">SDG16: -</p>
 
     <!-- Κουμπί για μετάβαση στη σελίδα SDG17 -->
@@ -122,25 +58,33 @@
         const i29Val2 = parseFloat(document.getElementById("i29-val2").value);
         const i29Val3 = parseFloat(document.getElementById("i29-val3").value);
 
-        const totalI29 = (i29Val1 + i29Val2 + i29Val3) * weightI29;
+        const totalI29 = i29Val1 + i29Val2 + i29Val3;
+        const weightedI29 = totalI29 * weightI29;
         const totalSDG16 = totalI29;
 
         document.getElementById(
           "result-i29"
-        ).textContent = `Σταθμισμένο I29: ${totalI29.toFixed(3)}`;
+        ).textContent = `Συνολικό I29 (πριν τον πολλαπλασιασμό): ${totalI29.toFixed(
+          3
+        )}`;
+        document.getElementById(
+          "result-weighted-i29"
+        ).textContent = `Σταθμισμένο I29: ${weightedI29.toFixed(3)}`;
         document.getElementById(
           "result-SDG16"
         ).textContent = `SDG16: ${totalSDG16.toFixed(3)}`;
 
         // Ανατροφοδότηση για I29
-        const feedbackΙ29 = document.getElementById("feedbackΙ29");
-        if (totalI29 <= 2) {
-          feedbackΙ29.textContent = "MORE THINGS CAN BE DONE";
-          feedbackΙ29.className = "low-performance";
+        const feedbackI29 = document.getElementById("feedbackI29");
+        if (totalI29 < 2) {
+          feedbackI29.textContent = "More things can be done";
+          feedbackI29.className = "low-performance";
         } else {
-          feedbackΙ29.textContent = "Good performance!";
-          feedbackΙ29.className = "good-performance";
+          feedbackI29.textContent = "Good performance!";
+          feedbackI29.className = "good-performance";
         }
+
+        localStorage.setItem("I29", weightedI29);
 
         // Ενεργοποίηση κουμπιού επόμενης σελίδας
         document.getElementById("next-button").disabled = false;

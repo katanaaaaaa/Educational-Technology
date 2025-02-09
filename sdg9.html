@@ -4,72 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Υπολογισμός SDG9</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-        background-color: #f9f9f9;
-        color: #333;
-      }
-      h1,
-      h3 {
-        text-align: center;
-      }
-      div {
-        margin-bottom: 20px;
-        padding: 15px;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        max-width: 500px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      label {
-        display: block;
-        margin: 5px 0;
-      }
-      select,
-      input {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-      }
-      button {
-        display: block;
-        width: 100%;
-        padding: 10px;
-        margin-top: 20px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        font-size: 16px;
-        cursor: pointer;
-      }
-      button:disabled {
-        background-color: #ccc;
-        cursor: not-allowed;
-      }
-      button:hover:not(:disabled) {
-        background-color: #0056b3;
-      }
-      h2,
-      p {
-        text-align: center;
-      }
-      .low-performance {
-        color: red;
-        font-weight: bold;
-      }
-      .good-performance {
-        color: green;
-        font-weight: bold;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <h1>Υπολογισμός Δεικτών SDG9</h1>
@@ -122,6 +57,7 @@
     <!-- Εμφάνιση Αποτελεσμάτων -->
     <h2>Αποτελέσματα</h2>
     <p id="result-i18">Σταθμισμένο I18: -</p>
+    <p id="result-SDG9">SDG9: -</p>
 
     <!-- Κουμπί για μετάβαση στη σελίδα SDG10 -->
     <br /><br />
@@ -172,7 +108,14 @@
           totalI18 = weightI18 * ratio;
         }
 
+        const totalSDG9 = totalI18;
+
         resultElement.textContent = `Σταθμισμένο I18: ${totalI18.toFixed(3)}`;
+        document.getElementById(
+          "result-SDG9"
+        ).textContent = `SDG9: ${totalSDG9.toFixed(3)}`;
+
+        localStorage.setItem("I18", totalI18);
 
         // Ενεργοποίηση κουμπιού επόμενης σελίδας
         document.getElementById("next-button").disabled = false;
@@ -182,8 +125,6 @@
       function navigateToSDG10() {
         window.location.href = "sdg10.html";
       }
-
-      localStorage.setItem("I18", totalI12);
     </script>
   </body>
 </html>
