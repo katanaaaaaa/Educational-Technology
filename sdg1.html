@@ -65,6 +65,13 @@
       color: green;
       font-weight: bold;
     }
+
+    .warning {
+      color: red;
+      font-weight: bold;
+      text-align: center;
+    }
+
   </style>
 </head>
 <body>
@@ -121,10 +128,10 @@
 
   <!-- Εμφάνιση Αποτελεσμάτων -->
   <h2>Αποτελέσματα</h2>
-  <p id="result-i1">Σταθμισμένο I1: -</p>
-  <p id="feedbackΙ1"></p>
-  <p id="result-i2">Σταθμισμένο I2: -</p>
-  <p id="feedbackΙ2"></p>
+  <p id="result-i1">I1: -</p>
+  <p id="feedback-I1" class="warning"></p>
+  <p id="result-i2">I2: -</p>
+  <p id="feedback-I2" class="warning"></p>
   <p id="result-SDG1">SDG1: -</p>
   
 
@@ -146,38 +153,29 @@
       const i2Val2 = parseFloat(document.getElementById("i2-val2").value);
       const i2Val3 = parseFloat(document.getElementById("i2-val3").value);
   
+      const check1 =i1Val1 + i1Val2 + i1Val3;
+      const check2 =i2Val1 + i2Val2 + i2Val3;
+
       const totalI1 = (i1Val1 + i1Val2 + i1Val3) * weightI1;
       const totalI2 = (i2Val1 + i2Val2 + i2Val3) * weightI2;
       const totalSDG1 = totalI1 + totalI2;
   
-      document.getElementById("result-i1").textContent = `Σταθμισμένο I1: ${totalI1.toFixed(2)}`;
-      document.getElementById("result-i2").textContent = `Σταθμισμένο I2: ${totalI2.toFixed(2)}`;
-      document.getElementById("result-SDG1").textContent = `SDG1: ${totalSDG1.toFixed(2)}`;
+      document.getElementById("result-i1").textContent = `Σταθμισμένο I1: ${check1.toFixed(2)}`;
+      document.getElementById("result-i2").textContent = `Σταθμισμένο I2: ${check2.toFixed(2)}`;
+      document.getElementById("result-SDG1").textContent = `SDG1: ${totalSDG1.toFixed(3)}`;
   
-      // Ανατροφοδότηση για I1
-      const feedbackΙ1 = document.getElementById("feedbackΙ1");
-      if (totalI1 <= 2.25) {
-        feedbackΙ1.textContent = "Η απόδοση του δείκτη I1 είναι χαμηλή. Χρειάζονται βελτιώσεις.";
-        feedbackΙ1.className = "low-performance";
-      } else {
-        feedbackΙ1.textContent = "Η απόδοση του δείκτη I1 είναι ικανοποιητική.";
-        feedbackΙ1.className = "good-performance";
-      }
+      document.getElementById("feedback-I1").textContent = check1 < 2 ? "More things can be done" : "";
+      document.getElementById("feedback-I2").textContent = check2 < 2 ? "More things can be done" : "";
   
-      // Ανατροφοδότηση για I2
-      const feedbackΙ2 = document.getElementById("feedbackΙ2");
-      if (totalI2 <= 2.25) {
-        feedbackΙ2.textContent = "Η απόδοση του δείκτη I2 είναι χαμηλή. Χρειάζονται βελτιώσεις.";
-        feedbackΙ2.className = "low-performance";
-      } else {
-        feedbackΙ2.textContent = "Η απόδοση του δείκτη I2 είναι ικανοποιητική.";
-        feedbackΙ2.className = "good-performance";
-      }
-  
+      localStorage.setItem("I1", totalI1);
+      localStorage.setItem("I2", totalI2);
+
       // Ενεργοποίηση κουμπιού επόμενης σελίδας
       document.getElementById("next-button").disabled = false;
+      
     }
   
+
     // Μετάβαση στη σελίδα SDG2
     function navigateToSDG2() {
       window.location.href = "sdg2.html";

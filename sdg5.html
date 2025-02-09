@@ -162,14 +162,13 @@
 
   <!-- Εμφάνιση Αποτελεσμάτων -->
   <h2>Αποτελέσματα</h2>
-  <p id="result-I9">Σταθμισμένο I9: -</p>
-  <p id="result-I10">Σταθμισμένο I10: -</p>
+  <p id="result-I9">I9: -</p>
+  <p id="result-I10">I10: -</p>
   <p id="feedbackΙ10" class="warning"></p>
-  <p id="result-I11">Σταθμισμένο I11: -</p>
+  <p id="result-I11">I11: -</p>
   <p id="feedbackΙ11" class="warning"></p>
-  <p id="result-I12">Σταθμισμένο I12: -</p>
+  <p id="result-I12">I12: -</p>
   <p id="feedbackΙ12" class="warning"></p>
-  <p id="result-SDG5">SDG5: -</p>
   
 
   <!-- Κουμπί για μετάβαση στη σελίδα SDG6 -->
@@ -198,11 +197,11 @@
 
     const refPerCapita = refFemStaff / refGraduates;
     const evalPerCapita = evalFemStaff / evalGraduates;
-    const ratio = evalPerCapita / refPerCapita;
-
-    document.getElementById("result-I9").textContent = 
-    ratio < 1 ? "Το αποτέλεσμα του έτους αξιολόγησης είναι μικρότερο από το έτος αναφοράς." 
-              : `Σταθμισμένο I9: ${(weight9 * ratio).toFixed(2)}`;
+    let ratio = evalPerCapita / refPerCapita;
+    if(ratio<1){
+      ratio = 0;
+    }
+    
   
       const I10Val1 = parseFloat(document.getElementById("I10-val1").value);
       const I10Val2 = parseFloat(document.getElementById("I10-val2").value);
@@ -223,18 +222,23 @@
       const totalI10 = wwI10 * weight10;
       const totalI11 = wwI11 * weight11;
       const totalI12 = wwI12 * weight12;
-      const totalSDG5 = totalI10 + totalI11 + totalI12 + weight9 * ratio;
   
-      document.getElementById("result-I10").textContent = `Σταθμισμένο I10: ${totalI10.toFixed(2)}`;
-      document.getElementById("result-I11").textContent = `Σταθμισμένο I11: ${totalI11.toFixed(2)}`;
-      document.getElementById("result-I12").textContent = `Σταθμισμένο I12: ${totalI12.toFixed(2)}`;
-      document.getElementById("result-SDG5").textContent = `SDG5: ${totalSDG5.toFixed(2)}`;
+      document.getElementById("result-I9").textContent = `I9: ${ratio.toFixed(2)}`;
+      document.getElementById("result-I10").textContent = `I10: ${wwI10.toFixed(2)}`;
+      document.getElementById("result-I11").textContent = `I11: ${wwI11.toFixed(2)}`;
+      document.getElementById("result-I12").textContent = `I12: ${wwI12.toFixed(2)}`;
   
     
       document.getElementById("feedbackΙ10").textContent = wwI10 < 2 ? "More things can be done" : "";
       document.getElementById("feedbackΙ11").textContent = wwI11 < 2 ? "More things can be done" : "";
       document.getElementById("feedbackΙ12").textContent = wwI12 < 2 ? "More things can be done" : "";
-  
+       
+      localStorage.setItem("I9", weight9 * ratio);
+      localStorage.setItem("I10", totalI10);
+      localStorage.setItem("I11", totalI11);
+      localStorage.setItem("I12", totalI12);
+
+      
       // Ενεργοποίηση κουμπιού επόμενης σελίδας
       document.getElementById("next-button").disabled = false;
     }

@@ -121,11 +121,10 @@
 
   <!-- Εμφάνιση Αποτελεσμάτων -->
   <h2>Αποτελέσματα</h2>
-  <p id="result-I5">Σταθμισμένο I5: -</p>
+  <p id="result-I5">I5: -</p>
   <p id="feedbackΙ1"></p>
-  <p id="result-I6">Σταθμισμένο I6: -</p>
+  <p id="result-I6">I6: -</p>
   <p id="feedbackΙ2"></p>
-  <p id="result-SDG3">SDG3: -</p>
   
 
   <!-- Κουμπί για μετάβαση στη σελίδα SDG4 -->
@@ -145,35 +144,39 @@
       const I6Val1 = parseFloat(document.getElementById("I6-val1").value);
       const I6Val2 = parseFloat(document.getElementById("I6-val2").value);
       const I6Val3 = parseFloat(document.getElementById("I6-val3").value);
+
+      const b_totalI5= I5Val1 + I5Val2 + I5Val3;
+      const totalI5 = b_totalI5* weightI5;
+      const b_totalI6=  I6Val1 + I6Val2 + I6Val3;
+      const totalI6 = b_totalI6 * weightI6;
   
-      const totalI5 = (I5Val1 + I5Val2 + I5Val3) * weightI5;
-      const totalI6 = (I6Val1 + I6Val2 + I6Val3) * weightI6;
-      const totalSDG3 = totalI5 + totalI6;
-  
-      document.getElementById("result-I5").textContent = `Σταθμισμένο I5: ${totalI5.toFixed(2)}`;
-      document.getElementById("result-I6").textContent = `Σταθμισμένο I6: ${totalI6.toFixed(2)}`;
-      document.getElementById("result-SDG3").textContent = `SDG3: ${totalSDG3.toFixed(2)}`;
+      document.getElementById("result-I5").textContent = `I5: ${b_totalI5.toFixed(2)}`;
+      document.getElementById("result-I6").textContent = `I6: ${b_totalI6.toFixed(2)}`;
   
       // Ανατροφοδότηση για I5
       const feedbackΙ1 = document.getElementById("feedbackΙ1");
-      if (totalI5 <= 2.25) {
-        feedbackΙ1.textContent = "Η απόδοση του δείκτη I5 είναι χαμηλή. Χρειάζονται βελτιώσεις.";
+      if (b_totalI5 < 2.25) {
+        feedbackΙ1.textContent = "More things can be done.";
         feedbackΙ1.className = "low-performance";
       } else {
-        feedbackΙ1.textContent = "Η απόδοση του δείκτη I5 είναι ικανοποιητική.";
-        feedbackΙ1.className = "good-performance";
+        feedbackΙ1.textContent = "";
+        feedbackΙ1.className = "";
       }
   
       // Ανατροφοδότηση για I6
       const feedbackΙ2 = document.getElementById("feedbackΙ2");
-      if (totalI6 <= 2.25) {
-        feedbackΙ2.textContent = "Η απόδοση του δείκτη I6 είναι χαμηλή. Χρειάζονται βελτιώσεις.";
+      if (b_totalI6 < 2.25) {
+        feedbackΙ2.textContent = "More things can be done.";
         feedbackΙ2.className = "low-performance";
       } else {
-        feedbackΙ2.textContent = "Η απόδοση του δείκτη I6 είναι ικανοποιητική.";
-        feedbackΙ2.className = "good-performance";
+        feedbackΙ2.textContent = "";
+        feedbackΙ2.className = "";
       }
   
+
+      localStorage.setItem("I5", totalI5);
+      localStorage.setItem("I6", totalI6);
+
       // Ενεργοποίηση κουμπιού επόμενης σελίδας
       document.getElementById("next-button").disabled = false;
     }

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Τελικά Αποτελέσματα SDG</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #007BFF;
+        }
+        
+        table {
+            width: 60%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: center;
+        }
+        
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        
+        td {
+            background-color: #f9f9f9;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:hover td {
+            background-color: #eef4ff;
+        }
+        
+        tfoot th {
+            background-color: #0056b3;
+            color: white;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Τελικά Αποτελέσματα SDG</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Δείκτης</th>
+            <th>Τιμή</th>
+        </tr>
+    </thead>
+    <tbody id="results-table">
+        <!-- Τα δεδομένα θα προστεθούν εδώ με JavaScript -->
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Συνολικό SDG</th>
+            <th id="total-sdg">-</th>
+        </tr>
+    </tfoot>
+</table>
+
+<script>
+    window.onload = function() {
+        let totalSDG = 0;
+        let tableBody = document.getElementById("results-table");
+
+        for (let i = 1; i <= 34; i++) {  
+            let value = localStorage.getItem(`I${i}`);
+            if (value !== null) {
+                value = parseFloat(value).toFixed(2);
+                totalSDG += parseFloat(value);
+
+                let row = `<tr>
+                    <td><strong>I${i}</strong></td>
+                    <td>${value}</td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            }
+        }
+
+        document.getElementById("total-sdg").textContent = totalSDG.toFixed(2);
+    };
+</script>
+
+<!-- Κουμπί για επιστροφή στην αρχική σελίδα -->
+<button onclick="window.location.href='index.html'" style="padding: 10px 20px; background-color: #007BFF; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; margin-top: 20px;">
+    Πίσω στην Αρχική Σελίδα
+</button>
+
+</body>
+</html>

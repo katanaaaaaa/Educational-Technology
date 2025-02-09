@@ -140,17 +140,15 @@
 
   <!-- Εμφάνιση Αποτελεσμάτων -->
   <h2>Αποτελέσματα</h2>
-  <p id="result-I15">Συνολικό I15 (πριν τον πολλαπλασιασμό): -</p>
-  <p id="result-weighted-I15">Σταθμισμένο I15: -</p>
+  <p id="result-I15">I15: -</p>
   <p id="feedback-I15" class="warning"></p>
-  <p id="result-I16">Συνολικό I16 (πριν τον πολλαπλασιασμό): -</p>
+  <p id="result-I16">I16: -</p>
   <p id="feedback-I16" class="warning"></p>
-  <p id="result-weighted-I16">Σταθμισμένο I16: -</p>
-  <p id="result-I17">Σταθμισμένο I17: -</p>
+  <p id="result-I17">I17: -</p>
 
   <!-- Κουμπί για μετάβαση στη σελίδα SDG7 -->
   <br><br>
-  <button id="next-button" onclick="navigateToSDG8()" disabled>Μετάβαση στο SDG8</button>
+  <button id="next-button" onclick="navigateTofinal()" disabled>Μετάβαση στο Final</button>
 
   <script>
   function calculateResults() {
@@ -173,11 +171,14 @@
   const refPerCapita = refenergy / reffloorSpace;
   const evalPerCapita = evalenergy / evalfloorSpace;
   const ratio = evalPerCapita / refPerCapita;
-  const totalI17 = (1 / ratio) * weightI17;
+  const b_totalI17 = 1 / ratio;
+  let totalI17 = b_totalI17 * weightI17;
 
-  document.getElementById("result-I17").textContent = 
-    ratio < 1 ? "Το αποτέλεσμα του έτους αξιολόγησης είναι μικρότερο από το έτος αναφοράς." 
-              : `Σταθμισμένο I17: ${( totalI17 ).toFixed(3)}`;
+  if (ratio < 1) {
+    totalI17 = 0;
+  }
+
+document.getElementById("result-I17").textContent = `I17: ${b_totalI17.toFixed(3)}`;
 
   // Εισαγωγή δεδομένων για I15
   const I15Val1 = parseFloat(document.getElementById("I15-val1").value);
@@ -195,13 +196,13 @@
   const weightedI16 = totalI16 * weightI16;
   
   document.getElementById("result-I15").textContent = `Συνολικό I15 (πριν τον πολλαπλασιασμό): ${totalI15.toFixed(0)}`;
-  document.getElementById("result-weighted-I15").textContent = `Σταθμισμένο I15: ${weightedI15.toFixed(3)}`;
-
   document.getElementById("result-I16").textContent = `Συνολικό I16 (πριν τον πολλαπλασιασμό): ${totalI16.toFixed(0)}`;
-  document.getElementById("result-weighted-I16").textContent = `Σταθμισμένο I16: ${weightedI16.toFixed(3)}`;
-
   document.getElementById("feedback-I15").textContent = totalI15 < 2 ? "More things can be done" : "";
   document.getElementById("feedback-I16").textContent = totalI16 < 2 ? "More things can be done" : "";
+
+  localStorage.setItem("I15", weightedI15);
+  localStorage.setItem("I16", weightedI16);
+  localStorage.setItem("I17", totalI17);
 
 
   // Ενεργοποίηση κουμπιού επόμενης σελίδας
@@ -210,8 +211,8 @@
 
     
     // Μετάβαση στη σελίδα SDG2
-    function navigateToSDG7() {
-      window.location.href = "sdg7.html";
+    function navigateTofinal() {
+      window.location.href = "final.html";
     }
 
     

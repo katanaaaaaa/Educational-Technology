@@ -66,6 +66,13 @@
       color: green;
       font-weight: bold;
     }
+
+    .warning {
+      color: red;
+      font-weight: bold;
+      text-align: center;
+    }
+
   </style>
 </head>
 <body>
@@ -115,19 +122,18 @@
 
   <!-- Εμφάνιση Αποτελεσμάτων -->
   <h2>Αποτελέσματα</h2>
-  <p id="result-i3">Σταθμισμένο I3: -</p>
-  <p id="result-i4">Συνολικό I4 (πριν τον πολλαπλασιασμό): -</p>
-  <p id="result-weighted-i4">Σταθμισμένο I4: -</p>
-  <p id="feedback-i4"></p>
+  <p id="result-i3">I3: -</p>
+  <p id="result-i4">I4: -</p>
+  <p id="feedback-I4" class="warning"></p>
 
-  <!-- Κουμπί για μετάβαση στη σελίδα SDG2 -->
+  <!-- Κουμπί για μετάβαση στη σελίδα SDG3 -->
   <br><br>
   <button id="next-button" onclick="navigateToSDG3()" disabled>Μετάβαση στο SDG3</button>
 
   <script>
     function calculateResults() {
   const weightI4 = 0.42;
-
+  const weightI3 = 0.58;
   // Εισαγωγή δεδομένων για I3
   const refWeight = parseFloat(document.getElementById("ref-weight").value);
   const refPopulation = parseFloat(document.getElementById("ref-population").value);
@@ -142,11 +148,14 @@
 
   const refPerCapita = refWeight / refPopulation;
   const evalPerCapita = evalWeight / evalPopulation;
-  const ratio = evalPerCapita / refPerCapita;
+  const ratio =  evalPerCapita / refPerCapita;
+  const b_total = 1/ratio;
+  let totalI3 = b_total * weightI3;
 
-  document.getElementById("result-i3").textContent = 
-    ratio < 1 ? "Το αποτέλεσμα του έτους αξιολόγησης είναι μικρότερο από το έτος αναφοράς." 
-              : `Σταθμισμένο I3: ${(1 / ratio).toFixed(2)}`;
+if (ratio < 1) {
+    totalI3 = 0;
+}
+
 
   // Εισαγωγή δεδομένων για I4
   const i4Val1 = parseFloat(document.getElementById("i4-val1").value);
@@ -156,17 +165,15 @@
   const totalI4 = i4Val1 + i4Val2 + i4Val3;
   const weightedI4 = totalI4 * weightI4;
   
-  document.getElementById("result-i4").textContent = `Συνολικό I4 (πριν τον πολλαπλασιασμό): ${totalI4.toFixed(2)}`;
-  document.getElementById("result-weighted-i4").textContent = `Σταθμισμένο I4: ${weightedI4.toFixed(2)}`;
+  document.getElementById("result-i3").textContent = `I3: ${b_total.toFixed(3)}`;
+  document.getElementById("result-i4").textContent = `I4: ${totalI4.toFixed(2)}`;
 
-  const feedbackI4 = document.getElementById("feedback-i4");
-  if (totalI4 < 2.25) {
-    feedbackI4.textContent = "IF VALUES 0-2,25 THEN MORE THINGS CAN BE DONE";
-    feedbackI4.className = "low-performance";
-  } else {
-    feedbackI4.textContent = "Good performance!";
-    feedbackI4.className = "good-performance";
-  }
+
+  document.getElementById("feedback-I4").textContent = totalI4 < 2 ? "More things can be done" : "";
+
+
+  localStorage.setItem("I3", totalI3);
+  localStorage.setItem("I4", weightedI4);
 
   // Ενεργοποίηση κουμπιού επόμενης σελίδας
   document.getElementById("next-button").disabled = false;

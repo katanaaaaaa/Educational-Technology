@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Καλωσήρθατε στο Σύστημα Αξιολόγησης Εκπαιδευτικού Συστήματος</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7fa;
+            color: #333;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        h2 {
+            color: #007BFF;
+            font-size: 2.5rem; /* Μειώθηκε το μέγεθος της γραμματοσειράς */
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px; /* Μικρότερο διάστημα γραμμάτων */
+            animation: fadeIn 1.5s ease-in-out;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Μικρότερη σκίαση */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .button-container {
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 15px 30px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 8px 16px rgba(0, 123, 255, 0.3);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        .card {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .card p {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Καλωσήρθατε στο Σύστημα Αξιολόγησης Εκπαιδευτικού Συστήματος</h2>
+        <p>Αυτή η πλατφόρμα σάς επιτρέπει να αξιολογήσετε την εκπαιδευτική διαδικασία με βάση τους δείκτες SDG. Πατήστε το κουμπί παρακάτω για να ξεκινήσετε την αξιολόγηση.</p>
+        
+        <div class="button-container">
+            <!-- Κουμπί για μετάβαση στην sdg1.html -->
+            <button onclick="window.location.href='sdg1.html'">
+                Ξεκινήστε την Αξιολόγηση
+            </button>
+        </div>
+    </div>
+
+</body>
+</html>

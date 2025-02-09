@@ -119,9 +119,8 @@
 
   <!-- Εμφάνιση Αποτελεσμάτων -->
   <h2>Αποτελέσματα</h2>
-  <p id="result-I13">Σταθμισμένο I13: -</p>
-  <p id="result-I14">Συνολικό I14 (πριν τον πολλαπλασιασμό): -</p>
-  <p id="result-weighted-I14">Σταθμισμένο I14: -</p>
+  <p id="result-I13">I13: -</p>
+  <p id="result-I14">I14: -</p>
   <p id="feedback-I14" class="warning"></p>
 
   <!-- Κουμπί για μετάβαση στη σελίδα SDG7 -->
@@ -148,11 +147,15 @@
   const refPerCapita = refwater / refPopulation;
   const evalPerCapita = evalwater / evalPopulation;
   const ratio = evalPerCapita / refPerCapita;
-  const totalI13 = (1 / ratio) * weightI13;
+  const b_totalI13 = 1 / ratio;
+  let totalI13 = b_totalI13 * weightI13;
 
-  document.getElementById("result-I13").textContent = 
-    ratio < 1 ? "Το αποτέλεσμα του έτους αξιολόγησης είναι μικρότερο από το έτος αναφοράς." 
-              : `Σταθμισμένο I13: ${( totalI13 ).toFixed(3)}`;
+  if (ratio < 1) {
+    totalI13 = 0;
+  }
+
+document.getElementById("result-I13").textContent = `I13: ${b_totalI13.toFixed(3)}`;
+
 
   // Εισαγωγή δεδομένων για I14
   const I14Val1 = parseFloat(document.getElementById("I14-val1").value);
@@ -162,10 +165,11 @@
   const totalI14 = I14Val1 + I14Val2 + I14Val3;
   const weightedI14 = totalI14 * weightI14;
   
-  document.getElementById("result-I14").textContent = `Συνολικό I14 (πριν τον πολλαπλασιασμό): ${totalI14.toFixed(0)}`;
-  document.getElementById("result-weighted-I14").textContent = `Σταθμισμένο I14: ${weightedI14.toFixed(3)}`;
-
+  document.getElementById("result-I14").textContent = `I14: ${totalI14.toFixed(0)}`;
   document.getElementById("feedback-I14").textContent = totalI14 < 2 ? "More things can be done" : "";
+
+  localStorage.setItem("I13", totalI13);
+  localStorage.setItem("I14", totalI14);
 
   // Ενεργοποίηση κουμπιού επόμενης σελίδας
   document.getElementById("next-button").disabled = false;
