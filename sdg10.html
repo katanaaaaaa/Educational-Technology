@@ -103,7 +103,8 @@
 
     <!-- Εμφάνιση Αποτελεσμάτων -->
     <h2>Αποτελέσματα</h2>
-    <p id="result-i19">Σταθμισμένο I19: -</p>
+    <p id="result-i19">Συνολικό I19 (πριν τον πολλαπλασιασμό): -</p>
+    <p id="result-weighted-i19">Σταθμισμένο I19: -</p>
     <p id="feedbackΙ19"></p>
     <p id="result-SDG10">SDG10: -</p>
 
@@ -122,25 +123,29 @@
         const i19Val2 = parseFloat(document.getElementById("i19-val2").value);
         const i19Val3 = parseFloat(document.getElementById("i19-val3").value);
 
-        const totalI19 = (i19Val1 + i19Val2 + i19Val3) * weightI19;
-        const totalSDG10 = totalI19;
+        const totalI19 = i19Val1 + i19Val2 + i19Val3;
+        const weightedI19 = totalI19 * weightI19;
+        const totalSDG10 = weightedI19;
 
         document.getElementById(
           "result-i19"
-        ).textContent = `Σταθμισμένο I19: ${totalI19.toFixed(3)}`;
+        ).textContent = `Συνολικό I19 (πριν τον πολλαπλασιασμό): ${totalI19.toFixed(
+          3
+        )}`;
+        document.getElementById(
+          "result-weighted-i19"
+        ).textContent = `Σταθμισμένο I19: ${weightedI19.toFixed(3)}`;
         document.getElementById(
           "result-SDG10"
         ).textContent = `SDG10: ${totalSDG10.toFixed(3)}`;
 
-        // Ανατροφοδότηση για I10
+        // Ανατροφοδότηση για I19
         const feedbackΙ19 = document.getElementById("feedbackΙ19");
         if (totalI19 <= 2) {
-          feedbackΙ19.textContent =
-            "Η απόδοση του δείκτη I19 είναι χαμηλή. Χρειάζονται βελτιώσεις.";
+          feedbackΙ19.textContent = "MORE THINGS CAN BE DONE";
           feedbackΙ19.className = "low-performance";
         } else {
-          feedbackΙ19.textContent =
-            "Η απόδοση του δείκτη I19 είναι ικανοποιητική.";
+          feedbackΙ19.textContent = "Good performance!";
           feedbackΙ19.className = "good-performance";
         }
 

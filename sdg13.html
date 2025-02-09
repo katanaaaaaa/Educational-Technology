@@ -75,7 +75,7 @@
     <h1>Υπολογισμός Δεικτών SDG13</h1>
 
     <!-- Φόρμα για το Ι25 -->
-    <div>
+    <!-- <div>
       <h3>Δείκτης I25</h3>
       <label for="i25-val1">Τιμή 1:</label>
       <select id="i25-val1">
@@ -95,6 +95,16 @@
         <option value="0">0</option>
         <option value="1">1</option>
       </select>
+    </div> -->
+    <div>
+      <h3>Δείτκης I25</h3>
+      <label for="i25-value">Τιμή I25:</label>
+      <input
+        type="number"
+        id="i25-value"
+        placeholder="Εισάγετε την τιμή"
+        required
+      />
     </div>
 
     <!-- Φόρμα για το Ι26 -->
@@ -144,15 +154,20 @@
         const weightI25 = 0.589;
         const weightI26 = 0.411;
 
-        const i25Val1 = parseFloat(document.getElementById("i25-val1").value);
-        const i25Val2 = parseFloat(document.getElementById("i25-val2").value);
-        const i25Val3 = parseFloat(document.getElementById("i25-val3").value);
+        // const i25Val1 = parseFloat(document.getElementById("i25-val1").value);
+        // const i25Val2 = parseFloat(document.getElementById("i25-val2").value);
+        // const i25Val3 = parseFloat(document.getElementById("i25-val3").value);
+        const i25Val = parseFloat(document.getElementById("i25-value").value);
+        if (isNaN(i25Val)) {
+          alert("Παρακαλώ εισάγετε έγκυρες αριθμητικές τιμές.");
+          return;
+        }
 
         const i26Val1 = parseFloat(document.getElementById("i26-val1").value);
         const i26Val2 = parseFloat(document.getElementById("i26-val2").value);
         const i26Val3 = parseFloat(document.getElementById("i26-val3").value);
 
-        const totalI25 = (i25Val1 + i25Val2 + i25Val3) * weightI25;
+        const totalI25 = i25Val * weightI25;
         const totalI26 = (i26Val1 + i26Val2 + i26Val3) * weightI26;
         const totalSDG13 = totalI25 + totalI26;
 
@@ -181,12 +196,10 @@
         // Ανατροφοδότηση για I26
         const feedbackI26 = document.getElementById("feedbackI26");
         if (totalI26 <= 2) {
-          feedbackI26.textContent =
-            "Η απόδοση του δείκτη I26 είναι χαμηλή. Χρειάζονται βελτιώσεις.";
+          feedbackI26.textContent = "MORE THINGS CAN BE DONE";
           feedbackI26.className = "low-performance";
         } else {
-          feedbackI26.textContent =
-            "Η απόδοση του δείκτη I26 είναι ικανοποιητική.";
+          feedbackI26.textContent = "Good performance!";
           feedbackI26.className = "good-performance";
         }
 

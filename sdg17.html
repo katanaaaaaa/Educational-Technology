@@ -74,6 +74,50 @@
   <body>
     <h1>Υπολογισμός Δεικτών SDG17</h1>
 
+    <!-- Φόρμα για τον Δείκτη I30 -->
+    <div>
+      <h3>Δείκτης I30</h3>
+      <label for="ref-publications"
+        >Αριθμός δημοσιεύσεων (Έτος Αναφοράς):</label
+      >
+      <input
+        type="number"
+        id="ref-publications"
+        placeholder="Εισάγετε τις δημοσιεύσεις"
+        required
+      />
+
+      <label for="ref-staff"
+        >Αριθμός ακαδημαϊκού προσωπικού (Έτος Αναφοράς):</label
+      >
+      <input
+        type="number"
+        id="ref-staff"
+        placeholder="Εισάγετε τον πληθυσμό"
+        required
+      />
+
+      <label for="eval-publications"
+        >Αριθμός δημοσιεύσεων (Έτος Αξιολόγησης):</label
+      >
+      <input
+        type="number"
+        id="eval-publications"
+        placeholder="Εισάγετε τα κιλά"
+        required
+      />
+
+      <label for="eval-staff"
+        >Αριθμός ακαδημαϊκού προσωπικού (Έτος Αξιολόγησης):</label
+      >
+      <input
+        type="number"
+        id="eval-staff"
+        placeholder="Εισάγετε τον πληθυσμό"
+        required
+      />
+    </div>
+
     <!-- Φόρμα για το Ι31 -->
     <div>
       <h3>Δείκτης I31</h3>
@@ -165,6 +209,7 @@
 
     <!-- Εμφάνιση Αποτελεσμάτων -->
     <h2>Αποτελέσματα</h2>
+    <p id="result-i30">Σταθμισμένο I30: -</p>
     <p id="result-i31">Σταθμισμένο I31: -</p>
     <p id="feedbackI31"></p>
     <p id="result-i32">Σταθμισμένο I32: -</p>
@@ -184,10 +229,51 @@
     <script>
       // Υπολογισμός αποτελεσμάτων
       function calculateResults() {
+        const weightI30 = 0.241;
         const weightI31 = 0.332;
         const weightI32 = 0.18;
         const weightI33 = 0.114;
         const weightI34 = 0.143;
+
+        // Εισαγωγή δεδομένων για I30
+        const refPublications = parseFloat(
+          document.getElementById("ref-publications").value
+        );
+        const refStaff = parseFloat(document.getElementById("ref-staff").value);
+        const evalPublications = parseFloat(
+          document.getElementById("eval-publications").value
+        );
+        const evalStaff = parseFloat(
+          document.getElementById("eval-staff").value
+        );
+
+        if (
+          isNaN(refPublications) ||
+          isNaN(refStaff) ||
+          isNaN(evalPublications) ||
+          isNaN(evalStaff) ||
+          refStaff <= 0 ||
+          evalStaff <= 0
+        ) {
+          alert(
+            "Παρακαλώ εισάγετε έγκυρες αριθμητικές τιμές για όλα τα πεδία του I30."
+          );
+          return;
+        }
+
+        const refPerCapita = refPublications / refStaff;
+        const evalPerCapita = evalPublications / evalStaff;
+        const ratio = evalPerCapita / refPerCapita;
+
+        const resultElement = document.getElementById("result-i30");
+        let totalI30;
+        if (ratio < 1) {
+          totalI30 = 0;
+        } else {
+          totalI30 = weightI30 * ratio;
+        }
+
+        resultElement.textContent = `Σταθμισμένο I30: ${totalI30.toFixed(3)}`;
 
         const i31Val1 = parseFloat(document.getElementById("i31-val1").value);
         const i31Val2 = parseFloat(document.getElementById("i31-val2").value);
@@ -208,7 +294,7 @@
         const totalI32 = (i32Val1 + i32Val2 + i32Val3) * weightI32;
         const totalI33 = (i33Val1 + i33Val2) * weightI33;
         const totalI34 = (i34Val1 + i34Val2 + i34Val3) * weightI34;
-        const totalSDG17 = totalI31 + totalI32 + totalI33 + totalI34;
+        const totalSDG17 = totalI30 + totalI31 + totalI32 + totalI33 + totalI34;
 
         document.getElementById(
           "result-i31"
@@ -265,12 +351,10 @@
         // Ανατροφοδότηση για I34
         const feedbackΙ34 = document.getElementById("feedbackΙ34");
         if (totalI34 <= 2) {
-          feedbackΙ34.textContent =
-            "Η απόδοση του δείκτη I34 είναι χαμηλή. Χρειάζονται βελτιώσεις.";
+          feedbackΙ34.textContent = "MORE THINGS CAN BE DONE";
           feedbackΙ34.className = "low-performance";
         } else {
-          feedbackΙ34.textContent =
-            "Η απόδοση του δείκτη I34 είναι ικανοποιητική.";
+          feedbackΙ34.textContent = "Good performance!";
           feedbackΙ34.className = "good-performance";
         }
 

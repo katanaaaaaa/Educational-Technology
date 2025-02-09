@@ -126,9 +126,11 @@
 
     <!-- Εμφάνιση Αποτελεσμάτων -->
     <h2>Αποτελέσματα</h2>
-    <p id="result-i20">Σταθμισμένο I20: -</p>
+    <p id="result-i20">Συνολικό I20 (πριν τον πολλαπλασιασμό):: -</p>
+    <p id="result-weighted-i20">Σταθμισμένο I20: -</p>
     <p id="feedbackI20"></p>
-    <p id="result-i21">Σταθμισμένο I21: -</p>
+    <p id="result-i21">Συνολικό I21 (πριν τον πολλαπλασιασμό): -</p>
+    <p id="result-weighted-i21">Σταθμισμένο I21: -</p>
     <p id="feedbackI21"></p>
     <p id="result-SDG11">SDG11: -</p>
 
@@ -152,16 +154,28 @@
         const i21Val2 = parseFloat(document.getElementById("i21-val2").value);
         const i21Val3 = parseFloat(document.getElementById("i21-val3").value);
 
-        const totalI20 = (i20Val1 + i20Val2 + i20Val3) * weightI20;
-        const totalI21 = (i21Val1 + i21Val2 + i21Val3) * weightI21;
-        const totalSDG11 = totalI20 + totalI21;
+        const totalI20 = i20Val1 + i20Val2 + i20Val3;
+        const weightedI20 = totalI20 * weightI20;
+        const totalI21 = i21Val1 + i21Val2 + i21Val3;
+        const weightedI21 = totalI21 * weightI21;
+        const totalSDG11 = weightedI20 + weightedI21;
 
         document.getElementById(
           "result-i20"
-        ).textContent = `Σταθμισμένο I20: ${totalI20.toFixed(3)}`;
+        ).textContent = `Συνολικό I20 (πριν τον πολλαπλασιασμό): ${totalI20.toFixed(
+          3
+        )}`;
+        document.getElementById(
+          "result-weighted-i20"
+        ).textContent = `Σταθμισμένο I20: ${weightedI20.toFixed(3)}`;
         document.getElementById(
           "result-i21"
-        ).textContent = `Σταθμισμένο I21: ${totalI21.toFixed(3)}`;
+        ).textContent = `Συνολικό I21 (πριν τον πολλαπλασιασμό): ${totalI21.toFixed(
+          3
+        )}`;
+        document.getElementById(
+          "result-weighted-i21"
+        ).textContent = `Σταθμισμένο I21: ${weightedI21.toFixed(3)}`;
         document.getElementById(
           "result-SDG11"
         ).textContent = `SDG11: ${totalSDG11.toFixed(3)}`;
@@ -169,24 +183,20 @@
         // Ανατροφοδότηση για I20
         const feedbackI20 = document.getElementById("feedbackI20");
         if (totalI20 <= 2.25) {
-          feedbackI20.textContent =
-            "Η απόδοση του δείκτη I20 είναι χαμηλή. Χρειάζονται βελτιώσεις.";
+          feedbackI20.textContent = "MORE THINGS CAN BE DONE";
           feedbackI20.className = "low-performance";
         } else {
-          feedbackI20.textContent =
-            "Η απόδοση του δείκτη I20 είναι ικανοποιητική.";
+          feedbackI20.textContent = "Good performance!";
           feedbackI20.className = "good-performance";
         }
 
         // Ανατροφοδότηση για I21
         const feedbackI21 = document.getElementById("feedbackI21");
         if (totalI21 <= 2) {
-          feedbackI21.textContent =
-            "Η απόδοση του δείκτη I21 είναι χαμηλή. Χρειάζονται βελτιώσεις.";
+          feedbackI21.textContent = "MORE THINGS CAN BE DONE";
           feedbackI21.className = "low-performance";
         } else {
-          feedbackI21.textContent =
-            "Η απόδοση του δείκτη I21 είναι ικανοποιητική.";
+          feedbackI21.textContent = "Good performance!";
           feedbackI21.className = "good-performance";
         }
 

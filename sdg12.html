@@ -118,6 +118,50 @@
       </select>
     </div>
 
+    <!-- Φόρμα για τον Δείκτη I24 -->
+    <div>
+      <h3>Δείκτης I24</h3>
+      <label for="ref-recycled"
+        >Ποσότητα ανακυκλώσιμων αποβλήτων (Έτος Αναφοράς):</label
+      >
+      <input
+        type="number"
+        id="ref-recycled"
+        placeholder="Εισάγετε την ποσότητα"
+        required
+      />
+
+      <label for="ref-generated"
+        >Ποσότητα παραγόμενων αποβλήτων (Έτος Αναφοράς):</label
+      >
+      <input
+        type="number"
+        id="ref-generated"
+        placeholder="Εισάγετε τον πληθυσμό"
+        required
+      />
+
+      <label for="eval-recycled"
+        >Ποσότητα ανακυκλώσιμων αποβλήτων (Έτος Αξιολόγησης):</label
+      >
+      <input
+        type="number"
+        id="eval-recycled"
+        placeholder="Εισάγετε την ποσότητα"
+        required
+      />
+
+      <label for="eval-generated"
+        >Ποσότητα παραγόμενων αποβλήτων (Έτος Αξιολόγησης):</label
+      >
+      <input
+        type="number"
+        id="eval-generated"
+        placeholder="Εισάγετε τον πληθυσμό"
+        required
+      />
+    </div>
+
     <!-- Κουμπί Υπολογισμού -->
     <button id="calculate-button" onclick="calculateResults()">
       Υπολόγισε
@@ -125,10 +169,14 @@
 
     <!-- Εμφάνιση Αποτελεσμάτων -->
     <h2>Αποτελέσματα</h2>
-    <p id="result-i22">Σταθμισμένο I22: -</p>
+    <p id="result-i22">Συνολικό I22 (πριν τον πολλαπλασιασμό): -</p>
+    <p id="result-weighted-i22">Σταθμισμένο I22: -</p>
     <p id="feedbackI22"></p>
-    <p id="result-i23">Σταθμισμένο I23: -</p>
+    <p id="result-i23">Συνολικό I23 (πριν τον πολλαπλασιασμό): -</p>
+    <p id="result-weighted-i23">Σταθμισμένο I23: -</p>
     <p id="feedbackI23"></p>
+    <p id="result-i24">Σταθμισμένο I24: -</p>
+    <p id="feedbackI24"></p>
     <p id="result-SDG12">SDG12: -</p>
 
     <!-- Κουμπί για μετάβαση στη σελίδα SDG13 -->
@@ -142,6 +190,7 @@
       function calculateResults() {
         const weightI22 = 0.291;
         const weightI23 = 0.422;
+        const weightI24 = 0.266;
 
         const i22Val1 = parseFloat(document.getElementById("i22-val1").value);
         const i22Val2 = parseFloat(document.getElementById("i22-val2").value);
@@ -151,16 +200,70 @@
         const i23Val2 = parseFloat(document.getElementById("i23-val2").value);
         const i23Val3 = parseFloat(document.getElementById("i23-val3").value);
 
-        const totalI22 = (i22Val1 + i22Val2 + i22Val3) * weightI22;
-        const totalI23 = (i23Val1 + i23Val2 + i23Val3) * weightI23;
-        const totalSDG12 = totalI22 + totalI23;
+        const totalI22 = i22Val1 + i22Val2 + i22Val3;
+        const weightedI22 = totalI22 * weightI22;
+        const totalI23 = i23Val1 + i23Val2 + i23Val3;
+        const weightedI23 = totalI23 * weightI23;
+
+        // Εισαγωγή δεδομένων για I24
+        const refRecycled = parseFloat(
+          document.getElementById("ref-recycled").value
+        );
+        const refGenerated = parseFloat(
+          document.getElementById("ref-generated").value
+        );
+        const evalRecycled = parseFloat(
+          document.getElementById("eval-recycled").value
+        );
+        const evalGenerated = parseFloat(
+          document.getElementById("eval-generated").value
+        );
+
+        if (
+          isNaN(refRecycled) ||
+          isNaN(refGenerated) ||
+          isNaN(evalRecycled) ||
+          isNaN(evalGenerated) ||
+          refGenerated <= 0 ||
+          evalGenerated <= 0
+        ) {
+          alert(
+            "Παρακαλώ εισάγετε έγκυρες αριθμητικές τιμές για όλα τα πεδία του I24."
+          );
+          return;
+        }
+
+        const refPerCapita = refRecycled / refGenerated;
+        const evalPerCapita = evalRecycled / evalGenerated;
+        const ratio = evalPerCapita / refPerCapita;
+
+        const resultElement = document.getElementById("result-i24");
+        let totalI24;
+        if (ratio > 1) {
+          totalI24 = 0;
+        } else {
+          totalI24 = (1 / ratio) * weightI24;
+        }
+
+        const totalSDG12 = weightedI22 + weightedI23 + totalI24;
 
         document.getElementById(
           "result-i22"
-        ).textContent = `Σταθμισμένο I22: ${totalI22.toFixed(3)}`;
+        ).textContent = `Συνολικό I22 (πριν τον πολλαπλασιασμό): ${totalI22.toFixed(
+          3
+        )}`;
+        document.getElementById(
+          "result-weighted-i22"
+        ).textContent = `Σταθμισμένο I22: ${weightedI22.toFixed(3)}`;
         document.getElementById(
           "result-i23"
-        ).textContent = `Σταθμισμένο I23: ${totalI23.toFixed(3)}`;
+        ).textContent = `Συνολικό I23 (πριν τον πολλαπλασιασμό): ${totalI23.toFixed(
+          3
+        )}`;
+        document.getElementById(
+          "result-weighted-i23"
+        ).textContent = `Σταθμισμένο I23: ${weightedI23.toFixed(3)}`;
+        resultElement.textContent = `Σταθμισμένο I24: ${totalI24.toFixed(3)}`;
         document.getElementById(
           "result-SDG12"
         ).textContent = `SDG12: ${totalSDG12.toFixed(3)}`;
@@ -168,24 +271,20 @@
         // Ανατροφοδότηση για I22
         const feedbackI22 = document.getElementById("feedbackI22");
         if (totalI22 <= 2) {
-          feedbackI22.textContent =
-            "Η απόδοση του δείκτη I22 είναι χαμηλή. Χρειάζονται βελτιώσεις.";
+          feedbackI22.textContent = "MORE THINGS CAN BE DONE";
           feedbackI22.className = "low-performance";
         } else {
-          feedbackI22.textContent =
-            "Η απόδοση του δείκτη I22 είναι ικανοποιητική.";
+          feedbackI22.textContent = "Good performance!";
           feedbackI22.className = "good-performance";
         }
 
         // Ανατροφοδότηση για I23
         const feedbackI23 = document.getElementById("feedbackI23");
         if (totalI23 <= 2) {
-          feedbackI23.textContent =
-            "Η απόδοση του δείκτη I23 είναι χαμηλή. Χρειάζονται βελτιώσεις.";
+          feedbackI23.textContent = "MORE THINGS CAN BE DONE";
           feedbackI23.className = "low-performance";
         } else {
-          feedbackI23.textContent =
-            "Η απόδοση του δείκτη I23 είναι ικανοποιητική.";
+          feedbackI23.textContent = "Good performance!";
           feedbackI23.className = "good-performance";
         }
 
