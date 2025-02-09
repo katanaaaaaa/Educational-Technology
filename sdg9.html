@@ -165,14 +165,14 @@
         const ratio = evalPerCapita / refPerCapita;
 
         const resultElement = document.getElementById("result-i18");
-        let result;
+        let totalI18;
         if (ratio < 1) {
-          result = 0;
+          totalI18 = 0;
         } else {
-          result = weightI18 * ratio;
+          totalI18 = weightI18 * ratio;
         }
 
-        resultElement.textContent = `Σταθμισμένο I18: ${result.toFixed(3)}`;
+        resultElement.textContent = `Σταθμισμένο I18: ${totalI18.toFixed(3)}`;
 
         // Ενεργοποίηση κουμπιού επόμενης σελίδας
         document.getElementById("next-button").disabled = false;
@@ -182,6 +182,8 @@
       function navigateToSDG10() {
         window.location.href = "sdg10.html";
       }
+
+      localStorage.setItem("I18", totalI12);
     </script>
   </body>
 </html>
